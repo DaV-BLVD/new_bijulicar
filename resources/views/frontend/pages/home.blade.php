@@ -54,6 +54,29 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="swiper-slide relative">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2071"
+                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 2">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
+                        <h1 class="text-white text-5xl md:text-8xl font-black tracking-tighter mb-4 uppercase italic">
+                            Find Your Type
+                        </h1>
+                        <p class="text-slate-200 text-lg md:text-2xl max-w-2xl mb-10 font-medium">
+                            All types of Cars available - Electric, Hybrid, and Traditional Combustion. Find the one that fits your lifestyle and budget.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <button
+                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
+                                Log In
+                            </button>
+                            <button
+                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
+                                Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="swiper-pagination !bottom-10"></div>

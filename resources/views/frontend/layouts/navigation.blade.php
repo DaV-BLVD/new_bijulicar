@@ -4,14 +4,15 @@
 
         <div class="hidden lg:flex items-center space-x-8">
             <div class="flex space-x-6 text-[14px] font-bold text-slate-800">
-                <a href="#" class="hover:text-green-600 transition-colors">Marketplace</a>
+                <a href="{{ route('marketplace') }}" class="hover:text-green-600 transition-colors">Marketplace</a>
                 <a href="#" class="hover:text-green-600 transition-colors">Compare</a>
-                <a href="#" class="hover:text-green-600 transition-colors">News</a>
+                <a href="{{ route('news') }}" class="hover:text-green-600 transition-colors">News</a>
+                <a href="{{ route('loan_calculator') }}" class="hover:text-green-600 transition-colors">Loan Calculator</a>
             </div>
         </div>
 
         <div class="flex items-center">
-            <a href="#" class="flex items-center gap-2 no-underline group">
+            <a href="{{ route('home') }}" class="flex items-center gap-2 no-underline group">
                 <div
                     class="w-9 h-9 bg-slate-900 rounded-lg flex items-center justify-center group-hover:bg-green-500 transition-colors shadow-lg">
                     <span class="text-white font-bold text-sm italic">BC</span>
@@ -35,9 +36,10 @@
                         class="bg-slate-200/50 border border-slate-400/50 focus:border-green-400 focus:bg-white focus:ring-4 focus:ring-green-100 outline-none rounded-xl py-2 pl-10 pr-4 text-sm w-40 md:w-52 transition-all duration-300 placeholder:text-slate-500">
                 </div>
 
-                <a href="#" class="text-[14px] font-bold text-slate-800 hover:text-green-600 transition">Map
+                <a href="{{ route('map_location') }}"
+                    class="text-[14px] font-bold text-slate-800 hover:text-green-600 transition">Map
                     Search</a>
-                <a href="#"
+                <a href="{{ route('contact') }}"
                     class="text-[14px] font-bold text-slate-800 hover:text-green-600 transition">Contact</a>
             </div>
 
