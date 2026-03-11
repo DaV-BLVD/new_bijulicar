@@ -180,41 +180,134 @@
         </div>
     </section>
 
-    <div class="grid lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2 bg-[#1e293b] border border-slate-700 rounded-[2.5rem] p-10">
-        <h2 class="text-3xl font-black text-white uppercase italic tracking-tighter mb-8">Direct <span class="text-[#4ade80]">Inquiry</span></h2>
-        
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-                <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Full Name</label>
-                <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 italic font-black text-xs">ID</span>
-                    <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white focus:border-[#4ade80] outline-none">
+    <section class="py-24 bg-[#f1f5f9] relative">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+                <div
+                    class="lg:col-span-8 bg-white border border-slate-200 rounded-[2.5rem] shadow-xl shadow-slate-200/60 overflow-hidden">
+                    <div class="p-10 pb-0">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="px-3 py-1 bg-[#4ade80]/10 text-[#16a34a] text-[10px] font-black uppercase tracking-widest rounded-full">Secure
+                                Transmission</span>
+                        </div>
+                        <h2 class="text-3xl font-black text-slate-900 uppercase italic tracking-tighter mb-2">Send us a
+                            <span class="text-[#16a34a]">Message</span>
+                        </h2>
+                    </div>
+
+                    <form action="#" class="p-10 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full
+                                    Name *</label>
+                                <input type="text" placeholder="Your full name"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email
+                                    Address *</label>
+                                <input type="email" placeholder="name@domain.com"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone
+                                    Number</label>
+                                <input type="tel" placeholder="+977"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Category
+                                    *</label>
+                                <select
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all cursor-pointer">
+                                    <option>General Support</option>
+                                    <option>Sales Team</option>
+                                    <option>Technical Support</option>
+                                    <option>Partnership</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Your
+                                Message *</label>
+                            <textarea rows="4" placeholder="How can we help you?"
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all"></textarea>
+                        </div>
+                        <button
+                            class="w-full py-5 bg-slate-900 text-white rounded-xl font-black uppercase italic tracking-widest text-sm hover:bg-[#16a34a] transition-all flex items-center justify-center gap-3 shadow-lg">
+                            Send Transmission
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </form>
                 </div>
-            </div>
-            </div>
 
-        <button class="w-full mt-8 py-4 bg-white text-black rounded-xl font-black uppercase italic tracking-[0.2em] text-sm hover:bg-[#4ade80] transition-all flex items-center justify-center gap-3">
-            Initialize Transmission
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="3"/></svg>
-        </button>
-    </div>
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/60">
+                        <div class="flex items-center gap-3 mb-8">
+                            <span class="w-1.5 h-8 bg-[#16a34a] rounded-full"></span>
+                            <h3 class="text-2xl font-black text-slate-900 uppercase italic tracking-tight">Contact
+                                Departments</h3>
+                        </div>
 
-    <div class="bg-red-500/10 border border-red-500/20 rounded-[2.5rem] p-10 flex flex-col justify-between">
-        <div class="space-y-4">
-            <div class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.4)]">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2"/></svg>
+                        <div class="space-y-8">
+                            <div class="group">
+                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">General
+                                    Support</p>
+                                <a href="mailto:support@bijulicar.com"
+                                    class="text-lg font-bold text-[#16a34a] hover:text-slate-900 transition-colors">support@bijulicar.com</a>
+                                <p class="text-xs text-slate-500 font-medium mt-1">General questions and account support
+                                </p>
+                            </div>
+
+                            <div class="group">
+                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Sales Team
+                                </p>
+                                <a href="mailto:sales@bijulicar.com"
+                                    class="text-lg font-bold text-[#16a34a] hover:text-slate-900 transition-colors">sales@bijulicar.com</a>
+                                <p class="text-xs text-slate-500 font-medium mt-1">Vehicle listings and marketplace
+                                    inquiries</p>
+                            </div>
+
+                            <div class="group">
+                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Technical
+                                    Support</p>
+                                <a href="mailto:tech@bijulicar.com"
+                                    class="text-lg font-bold text-[#16a34a] hover:text-slate-900 transition-colors">tech@bijulicar.com</a>
+                                <p class="text-xs text-slate-500 font-medium mt-1">Website issues and technical problems
+                                </p>
+                            </div>
+
+                            <div class="group">
+                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">
+                                    Partnership</p>
+                                <a href="mailto:partners@bijulicar.com"
+                                    class="text-lg font-bold text-[#16a34a] hover:text-slate-900 transition-colors">partners@bijulicar.com</a>
+                                <p class="text-xs text-slate-500 font-medium mt-1">Business partnerships and collaborations
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 rounded-[2rem] p-8 text-center">
+                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Need a faster reply?</p>
+                        <p class="text-white text-sm mb-4">Check our <span class="text-[#4ade80]">Help Center</span> for
+                            instant guides.</p>
+                        <a href="#"
+                            class="inline-block px-6 py-2 border border-white/20 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all">Visit
+                            FAQ</a>
+                    </div>
+                </div>
+
             </div>
-            <h3 class="text-white font-black uppercase italic tracking-wider text-xl">Rapid Response</h3>
-            <p class="text-red-200/60 text-sm font-medium leading-relaxed">For urgent technical failures affecting vehicle safety or security.</p>
         </div>
-
-        <div class="pt-8 border-t border-red-500/20">
-            <p class="text-[10px] font-black text-red-400 uppercase tracking-[0.3em] mb-2">Priority Line</p>
-            <a href="tel:+1555911HELP" class="text-2xl font-black text-white hover:text-red-400 transition-colors tracking-tighter">+1 (555) 911-HELP</a>
-        </div>
-    </div>
-</div>
+    </section>
 
     <section class="py-24 bg-[#1e293b] relative overflow-hidden">
         <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#4ade80]/5 blur-[120px] rounded-full"></div>
@@ -351,4 +444,87 @@
             </div>
         </div>
     </section>
+
+    <section class="py-24 bg-[#fafcfd] relative">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div
+                class="bg-white border border-slate-200 rounded-[2.5rem] p-4 shadow-xl shadow-slate-200/60 relative overflow-hidden">
+
+                <div class="absolute top-8 left-8 z-[1] hidden md:block">
+                    <div
+                        class="bg-slate-900/90 backdrop-blur-md border border-white/10 p-5 rounded-2xl shadow-2xl max-w-xs">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse"></span>
+                            <p class="text-[10px] font-black text-[#4ade80] uppercase tracking-widest">Global Headquarters
+                            </p>
+                        </div>
+                        <h3 class="text-white font-bold text-lg leading-tight mb-2">BijuliCar Plaza, Naxal</h3>
+                        <p class="text-slate-400 text-xs font-medium leading-relaxed">
+                            Kathmandu 44600, Nepal. <br>
+                            Level 4, Tech Hub West.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+                            <a href="https://maps.google.com" target="_blank"
+                                class="text-[#4ade80] text-[10px] font-black uppercase tracking-widest hover:text-white transition-colors">
+                                Open in Google Maps →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contactMap"
+                    class="w-full h-[500px] rounded-[2rem] z-0 grayscale-[0.2] hover:grayscale-0 transition-all duration-700">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Map (Coordinates for Kathmandu/Naxal as an example)
+            var map = L.map('contactMap', {
+                scrollWheelZoom: false, // Prevents accidental zoom while scrolling the page
+                zoomControl: false // We'll move zoom control to a cleaner spot
+            }).setView([27.7149, 85.3298], 15);
+
+            // Professional Clean Map Tiles (CartoDB Positron)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // Custom Green Brand Marker
+            var customIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div class="w-10 h-10 bg-slate-900 rounded-2xl border-2 border-[#4ade80] flex items-center justify-center shadow-2xl shadow-[#4ade80]/40 transform -translate-x-1/2 -translate-y-1/2">
+                    <svg class="w-5 h-5 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                   </div>`,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            L.marker([27.7149, 85.3298], {
+                icon: customIcon
+            }).addTo(map);
+
+            // Add Zoom Control back to a professional position
+            L.control.zoom({
+                position: 'bottomright'
+            }).addTo(map);
+        });
+    </script>
+
+    <style>
+        /* Styling for the custom marker to ensure it centers correctly */
+        .leaflet-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+    </style>
 @endsection
