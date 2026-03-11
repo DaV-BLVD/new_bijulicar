@@ -12,12 +12,11 @@
 
                     {{-- Added pt-20 to ensure content doesn't get hidden behind the floating navbar --}}
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
-                        <h1 class="text-white text-5xl md:text-8xl font-black tracking-tighter mb-4 uppercase italic">
+                        <h1 class="text-white text-5xl md:text-7xl font-black tracking-tighter mb-4 uppercase italic">
                             Find Your <span class="text-[#4ade80]">Perfect</span> Vehicle
                         </h1>
                         <p class="text-slate-200 text-lg md:text-2xl max-w-4xl mb-10 font-medium">
-                            Discover the largest marketplace for all types of vehicles on BijuliCar.com. Whether electric,
-                            hybrid, or traditional - compare specs, find the best deals, and drive into your future.
+                            Discover the largest marketplace for all types of vehicles on BijuliCar.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4">
                             <button
