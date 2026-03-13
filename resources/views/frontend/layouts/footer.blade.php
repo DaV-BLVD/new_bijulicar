@@ -97,7 +97,7 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="#"
+                <a href="{{ route('user-login') }}"
                     class="text-xs font-black uppercase italic tracking-widest text-slate-900 hover:text-[#16a34a] transition-all">Login</a>
                 <a href="#"
                     class="bg-[#16a34a] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] hover:bg-slate-900 hover:shadow-lg transition-all">

@@ -550,7 +550,7 @@
         </div>
     </section>
 
-    <section class="pt-20 bg-white">
+    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div
                 class="relative overflow-hidden bg-[#0f172a] rounded-[3rem] px-8 py-16 text-center shadow-2xl shadow-slate-900/20">
