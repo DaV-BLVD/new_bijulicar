@@ -37,7 +37,8 @@
         <div class="flex items-center space-x-2 md:space-x-4">
             <div class="hidden lg:flex items-center space-x-2">
                 <a href="{{ route('map_location') }}"
-                    class="px-3 py-2 rounded-xl text-[14px] font-bold {{ Route::is('map_location') ? 'text-green-600 bg-green-50' : 'text-slate-800 hover:bg-slate-50' }}">Map Search</a>
+                    class="px-3 py-2 rounded-xl text-[14px] font-bold {{ Route::is('map_location') ? 'text-green-600 bg-green-50' : 'text-slate-800 hover:bg-slate-50' }}">Map
+                    Search</a>
                 <a href="{{ route('contact') }}"
                     class="px-3 py-2 rounded-xl text-[14px] font-bold {{ Route::is('contact') ? 'text-green-600 bg-green-50' : 'text-slate-800 hover:bg-slate-50' }}">Contact</a>
                 <div class="h-6 w-[1px] bg-slate-200 mx-2"></div>

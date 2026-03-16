@@ -98,4 +98,136 @@
             </div>
         </div>
     </section>
+
+    <section class="py-12 bg-[#f8fafc]">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-900 uppercase italic tracking-tighter">
+                        Map <span class="text-[#16a34a]">Intelligence</span>
+                    </h2>
+                    <p class="text-slate-500 text-sm font-medium mt-1">Locate verified inventory and charging hubs in
+                        real-time.</p>
+                </div>
+                <div class="px-4 py-2 bg-white border border-slate-200 rounded-2xl flex items-center gap-3 shadow-sm">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#16a34a]"></span>
+                    </span>
+                    <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">2 Stations & 2 Vehicles
+                        Found</span>
+                </div>
+            </div>
+
+            <div
+                class="bg-white border border-slate-200 rounded-[2.5rem] p-4 shadow-xl shadow-slate-200/50 flex flex-col lg:flex-row gap-4">
+
+                <div class="lg:w-80 flex flex-col gap-4">
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
+                        <label class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 block">User
+                            Location</label>
+                        <div class="flex items-center gap-3 text-slate-700">
+                            <span class="text-lg">📍</span>
+                            <div class="overflow-hidden">
+                                <p class="text-[11px] font-black truncate">Lalitpur, Nepal</p>
+                                <p class="text-[10px] text-slate-400 font-mono">27.72, 85.33</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 flex-1">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Radius</label>
+                                <select
+                                    class="w-full bg-white border border-slate-200 rounded-xl py-3 px-3 text-xs font-bold outline-none">
+                                    <option>50 Miles</option>
+                                    <option>100 Miles</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Type</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" checked class="rounded text-[#16a34a] focus:ring-[#16a34a]">
+                                        <span class="text-xs font-bold text-slate-600">Charging Hubs</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" checked class="rounded text-blue-500 focus:ring-blue-500">
+                                        <span class="text-xs font-bold text-slate-600">Vehicle Stock</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="refreshMap()"
+                        class="w-full bg-slate-900 text-white py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#16a34a] transition-all shadow-lg shadow-slate-200 active:scale-95">
+                        Update Results
+                    </button>
+                </div>
+
+                <div
+                    class="flex-1 relative min-h-[500px] lg:min-h-auto overflow-hidden rounded-[2rem] border border-slate-100">
+                    <div id="map" class="absolute inset-0 z-0"></div>
+
+                    <div
+                        class="absolute bottom-4 left-4 z-[1000] bg-white/80 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/50 flex gap-4 shadow-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-[#16a34a]"></span>
+                            <span class="text-[9px] font-black text-slate-600 uppercase">Station</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            <span class="text-[9px] font-black text-slate-600 uppercase">Vehicle</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Map Init (Inside the contained div)
+        const map = L.map('map', {
+            zoomControl: false
+        }).setView([27.7283, 85.3341], 14);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Re-use custom icons from previous step
+        const stationIcon = L.divIcon({
+            className: 'custom-icon',
+            html: `<div style="background:#16a34a; width:10px; height:10px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 8px rgba(22,163,74,0.5);"></div>`,
+            iconSize: [10, 10]
+        });
+
+        // Dummy point
+        L.marker([27.7283, 85.3341], {
+                icon: stationIcon
+            }).addTo(map)
+            .bindPopup("<span class='text-[10px] font-bold uppercase'>Hub Station #1</span>");
+
+        function refreshMap() {
+            // Logic to refresh
+            alert("Updating dashboard data...");
+        }
+    </script>
+
+    <style>
+        /* Prevent leaflet from breaking layout */
+        .leaflet-container {
+            background: #f1f5f9;
+        }
+    </style>
 @endsection
