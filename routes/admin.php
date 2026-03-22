@@ -1,0 +1,42 @@
+<?php
+
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminManagementController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // 1. Guest Routes
+        Route::get('/login', [AdminAuthController::class, 'showForm'])->name('login');
+        Route::post('/login', [AdminAuthController::class, 'login']);
+
+        // 2. Authenticated Admin Routes
+        Route::middleware(['auth.admin'])->group(function () {
+            Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+            Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+            // 3. User & Permission Management (Standard Admin + Superadmin)
+            // Syntax: role:role1|role2,guard
+            Route::middleware(['role:superadmin|admin,admin'])->group(function () {
+                // Users
+                Route::get('/users', [AdminDashboardController::class, 'users'])->name('users');
+                Route::patch('/users/{user}/role', [AdminDashboardController::class, 'updateUserRole'])->name('users.updateRole');
+
+                // Permissions CRUD
+                Route::resource('permissions', PermissionController::class)->except(['show']);
+
+                // Roles CRUD
+                Route::resource('roles', RoleController::class)->except(['show']);
+                Route::post('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.permissions.update');
+            });
+
+            // 4. Staff Management (Superadmin ONLY)
+            Route::middleware(['role:superadmin,admin'])->group(function () {
+                Route::resource('admins', AdminManagementController::class)->except(['show']);
+            });
+        });
+    });
