@@ -33,6 +33,9 @@ Route::prefix('admin')
                 // Roles CRUD
                 Route::resource('roles', RoleController::class)->except(['show']);
                 Route::post('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.permissions.update');
+
+                // map location
+                Route::resource('/locations', App\Http\Controllers\Admin\LocationController::class)->except(['show']);
             });
 
             // 4. Staff Management (Superadmin ONLY)

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('frontend.pages.home'))->name('home');
 Route::get('/marketplace', [App\Http\Controllers\MarketplaceController::class, 'index'])->name('marketplace');
 Route::get('/news', fn() => view('frontend.pages.news'))->name('news');
-Route::get('/map_location', fn() => view('frontend.pages.map_location'))->name('map_location');
+// Route::get('/map_location', fn() => view('frontend.pages.map_location'))->name('map_location');
+Route::get('/map_location', [App\Http\Controllers\MapController::class, 'index'])->name('map_location');
 Route::get('/loan_calculator', fn() => view('frontend.pages.loan_calculator'))->name('loan_calculator');
 Route::get('/contact', fn() => view('frontend.pages.contact'))->name('contact');
 Route::get('/compare_cars', fn() => view('frontend.pages.compare_cars'))->name('compare_cars');
@@ -41,7 +42,6 @@ Route::middleware(['auth', 'role:buyer'])
     ->prefix('buyer')
     ->name('buyer.')
     ->group(function () {
-
         // Dashboard
         Route::get('/dashboard', fn() => view('dashboard.buyer', ['user' => auth()->user()]))->name('dashboard');
 
