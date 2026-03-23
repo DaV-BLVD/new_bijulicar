@@ -218,10 +218,10 @@
                                         </form>
                                     @endif
                                 @else
-                                    <a href="{{ route('user-login') }}" class="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors">Login to Order</a>
+                                    <a href="{{ route('login') }}" class="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors">Login to Order</a>
                                 @endif
                             @else
-                                <a href="{{ route('user-login') }}" class="flex items-center gap-2 bg-slate-100 text-slate-700 px-4 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-900 hover:text-white transition-all">Login to Order</a>
+                                <a href="{{ route('login') }}" class="flex items-center gap-2 bg-slate-100 text-slate-700 px-4 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-900 hover:text-white transition-all">Login to Order</a>
                             @endauth
                         </div>
                     </div>
