@@ -25,6 +25,7 @@ Route::prefix('admin')
                 // Users
                 Route::get('/users', [AdminDashboardController::class, 'users'])->name('users');
                 Route::patch('/users/{user}/role', [AdminDashboardController::class, 'updateUserRole'])->name('users.updateRole');
+                Route::delete('/users/{user}', [AdminDashboardController::class, 'destroy'])->name('users.destroy');
 
                 // Permissions CRUD
                 Route::resource('permissions', PermissionController::class)->except(['show']);

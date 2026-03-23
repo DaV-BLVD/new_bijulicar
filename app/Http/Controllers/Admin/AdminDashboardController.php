@@ -38,4 +38,13 @@ class AdminDashboardController extends Controller
         $user->syncRoles([$data['role']]);
         return back()->with('success', "Role updated for {$user->name}.");
     }
+
+    public function destroy($user)
+    {
+        $user = User::findOrFail($user);
+
+        $user->delete();
+
+        return back()->with('success', 'User deleted successfully');
+    }
 }

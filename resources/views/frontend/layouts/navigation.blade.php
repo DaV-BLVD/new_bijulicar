@@ -42,7 +42,7 @@
                 <a href="{{ route('contact') }}"
                     class="px-3 py-2 rounded-xl text-[14px] font-bold {{ Route::is('contact') ? 'text-green-600 bg-green-50' : 'text-slate-800 hover:bg-slate-50' }}">Contact</a>
                 <div class="h-6 w-[1px] bg-slate-200 mx-2"></div>
-                <a href="{{ route('user-login') }}" class="text-[14px] font-bold text-slate-900 px-3">Login</a>
+                <a href="{{ route('login') }}" class="text-[14px] font-bold text-slate-900 px-3">Login</a>
             </div>
 
             <a href="{{ route('user-registration') }}"
@@ -96,7 +96,7 @@
                 <div class="h-px bg-slate-100 my-2"></div>
 
                 <div class="grid grid-cols-2 gap-3 pt-2">
-                    <a href="{{ route('user-login') }}"
+                    <a href="{{ route('login') }}"
                         class="flex items-center justify-center py-4 rounded-2xl bg-slate-100 text-slate-900 font-bold text-sm">Login</a>
                     <a href="{{ route('user-registration') }}"
                         class="flex items-center justify-center py-4 rounded-2xl bg-[#4ade80] text-black font-black text-sm shadow-lg shadow-green-400/20">Sign

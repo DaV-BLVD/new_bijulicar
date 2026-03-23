@@ -13,8 +13,8 @@ Route::get('/contact', fn() => view('frontend.pages.contact'))->name('contact');
 Route::get('/compare_cars', fn() => view('frontend.pages.compare_cars'))->name('compare_cars');
 
 // Static frontend auth pages (your existing UI pages — keep for design reference)
-Route::get('/user-login', fn() => view('frontend.auth.login'))->name('user-login');
-Route::get('/user-registration', fn() => view('frontend.auth.registration'))->name('user-registration');
+Route::get('/login', fn() => view('frontend.auth.login'))->name('user-login');
+Route::get('/registration', fn() => view('frontend.auth.registration'))->name('user-registration');
 
 // ── Dashboard — smart redirect based on role ──────────────────────────
 Route::get('/dashboard', function () {
@@ -64,5 +64,65 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/debug-permissions', function() {
+    $admin = auth()->guard('admin')->user();
+    
+    if (!$admin) {
+        return "NOT LOGGED IN to admin guard";
+    }
+    
+    $output = [];
+    $output[] = "=== ADMIN INFO ===";
+    $output[] = "ID: " . $admin->id;
+    $output[] = "Name: " . $admin->name;
+    $output[] = "Email: " . $admin->email;
+    $output[] = "";
+    
+    $output[] = "=== ROLES ===";
+    $roles = $admin->getRoleNames();
+    $output[] = "Roles: " . ($roles->isEmpty() ? 'NONE' : $roles->implode(', '));
+    $output[] = "";
+    
+    $output[] = "=== PERMISSIONS ===";
+    $permissions = $admin->getAllPermissions();
+    if ($permissions->isEmpty()) {
+        $output[] = "Permissions: NONE";
+    } else {
+        foreach ($permissions as $perm) {
+            $output[] = "- {$perm->name} (guard: {$perm->guard_name})";
+        }
+    }
+    $output[] = "";
+    
+    $output[] = "=== PERMISSION CHECKS ===";
+    $output[] = "hasRole('superadmin'): " . ($admin->hasRole('superadmin') ? 'TRUE' : 'FALSE');
+    $output[] = "hasRole('admin'): " . ($admin->hasRole('admin') ? 'TRUE' : 'FALSE');
+    $output[] = "can('manage users'): " . ($admin->can('manage users') ? 'TRUE' : 'FALSE');
+    $output[] = "hasPermissionTo('manage users'): " . ($admin->hasPermissionTo('manage users') ? 'TRUE' : 'FALSE');
+    $output[] = "";
+    
+    $output[] = "=== GATE CHECKS ===";
+    $output[] = "Gate::allows('manage users'): " . (\Illuminate\Support\Facades\Gate::allows('manage users') ? 'TRUE' : 'FALSE');
+    $output[] = "";
+    
+    $output[] = "=== DATABASE CHECK ===";
+    $permExists = \Spatie\Permission\Models\Permission::where('name', 'manage users')
+        ->where('guard_name', 'admin')
+        ->first();
+    $output[] = "Permission 'manage users' exists: " . ($permExists ? 'YES (ID: ' . $permExists->id . ')' : 'NO');
+    
+    $roleExists = \Spatie\Permission\Models\Role::where('name', 'superadmin')
+        ->where('guard_name', 'admin')
+        ->first();
+    $output[] = "Role 'superadmin' exists: " . ($roleExists ? 'YES (ID: ' . $roleExists->id . ')' : 'NO');
+    
+    if ($roleExists) {
+        $rolePerms = $roleExists->permissions->pluck('name');
+        $output[] = "Superadmin permissions: " . ($rolePerms->isEmpty() ? 'NONE' : $rolePerms->implode(', '));
+    }
+    
+    return '<pre>' . implode("\n", $output) . '</pre>';
+})->middleware('auth:admin');
 
 require __DIR__ . '/auth.php';

@@ -22,6 +22,9 @@ class AdminAuthenticate
             }
             return redirect()->route('admin.login');
         }
+
+        auth()->shouldUse('admin');
+        
         return $next($request);
     }
 }
