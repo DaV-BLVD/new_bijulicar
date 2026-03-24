@@ -11,7 +11,7 @@ class NewsArticleController extends Controller
 {
     public function index()
     {
-        $articles = NewsArticle::orderBy('published_at', 'desc')->paginate(10);
+        $articles = NewsArticle::orderBy('published_at', 'asc')->paginate(5);
         return view('admin.news.index', compact('articles'));
     }
 

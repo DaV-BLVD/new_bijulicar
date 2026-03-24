@@ -128,10 +128,46 @@
                     </aside>
 
                     {{-- Content Column --}}
-                    <article class="lg:col-span-7 prose prose-slate prose-lg max-w-none pb-24">
-                        <div class="drop-cap">
-                            {!! $article->content_html !!}
+                    <article class="lg:col-span-7 prose prose-slate prose-lg max-w-none pb-14">
+                        @if ($article->content_html)
+                            <p class="drop-cap">
+                                {{ $article->content_html }}
+                            </p>
+                        @endif
+
+                        @if ($article->quote)
+                            <blockquote class="my-12 py-8 border-y-2 border-slate-900">
+                                <p class="text-3xl italic text-slate-900 leading-tight">
+                                    "{{ $article->quote }}"
+                                </p>
+                            </blockquote>
+                        @endif
+
+                        @if ($article->title2)
+                            <h2 class="text-3xl font-black text-slate-900 py-8">{{ $article->title2 }}</h2>
+                        @endif
+
+                        @if ($article->content_html2)
+                            <p>
+                                {{ $article->content_html2 }}
+                            </p>
+                        @endif
+
+                        <div class="grid grid-cols-2 gap-4 my-5">
+                            @foreach ($article->content_images2 ?? [] as $image)
+                                <img src="{{ $image }}" class="rounded-3xl h-64 w-full object-cover">
+                            @endforeach
                         </div>
+
+                        @if ($article->title3)
+                            <h2 class="text-3xl font-black text-slate-900 py-5">{{ $article->title3 }}</h2>
+                        @endif
+
+                        @if ($article->content_html3)
+                            <p>
+                                {{ $article->content_html3 }}
+                            </p>
+                        @endif
                     </article>
 
                     {{-- Right Sidebar (Specs & Related) --}}
@@ -156,7 +192,7 @@
                             {{-- This section can be populated with other articles --}}
                             @foreach ($article->related_articles as $related)
                                 <div class="flex gap-4 group cursor-pointer">
-                                    <img src="{{ asset('storage/' . $related['image']) }}"
+                                    <img src="{{ $related['image'] }}"
                                         class="w-20 h-20 rounded-2xl object-cover">
                                     <div>
                                         <h5 class="text-sm font-bold group-hover:text-green-600 transition-colors">
@@ -180,4 +216,40 @@
             {{ $articles->links() }}
         </div>
     </div>
+
+    <style>
+        h1,
+        h2,
+        h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        article p {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #16a34a;
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s;
+        }
+
+        .drop-cap::first-letter {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 4rem;
+            float: left;
+            margin-right: 0.5rem;
+            line-height: 1;
+            color: #0f172a;
+        }
+    </style>
 @endsection
