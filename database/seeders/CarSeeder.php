@@ -22,7 +22,7 @@ class CarSeeder extends Seeder
             // ── Listed by seller ──────────────────────────────────────
             [
                 'seller_id'        => $seller->id,
-                'make'             => 'BYD',
+                'brand'             => 'BYD',
                 'model'            => 'Atto 3',
                 'year'             => 2023,
                 'variant'          => 'Extended Range',
@@ -40,7 +40,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $seller->id,
-                'make'             => 'Tesla',
+                'brand'             => 'Tesla',
                 'model'            => 'Model 3',
                 'year'             => 2022,
                 'variant'          => 'Standard Range Plus',
@@ -58,7 +58,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $seller->id,
-                'make'             => 'MG',
+                'brand'             => 'MG',
                 'model'            => 'ZS EV',
                 'year'             => 2023,
                 'variant'          => 'Excite',
@@ -76,7 +76,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $seller->id,
-                'make'             => 'Toyota',
+                'brand'             => 'Toyota',
                 'model'            => 'Prius',
                 'year'             => 2021,
                 'variant'          => 'Z Grade',
@@ -96,7 +96,7 @@ class CarSeeder extends Seeder
             // ── Listed by business ────────────────────────────────────
             [
                 'seller_id'        => $business->id,
-                'make'             => 'BYD',
+                'brand'             => 'BYD',
                 'model'            => 'Seal',
                 'year'             => 2024,
                 'variant'          => 'Design',
@@ -114,7 +114,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $business->id,
-                'make'             => 'BYD',
+                'brand'             => 'BYD',
                 'model'            => 'Dolphin',
                 'year'             => 2024,
                 'variant'          => null,
@@ -132,7 +132,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $business->id,
-                'make'             => 'Kia',
+                'brand'             => 'Kia',
                 'model'            => 'EV6',
                 'year'             => 2023,
                 'variant'          => 'GT-Line AWD',
@@ -150,7 +150,7 @@ class CarSeeder extends Seeder
             ],
             [
                 'seller_id'        => $business->id,
-                'make'             => 'Hyundai',
+                'brand'             => 'Hyundai',
                 'model'            => 'Kona Electric',
                 'year'             => 2022,
                 'variant'          => 'Premium',

@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- Header row --}}
     <div class="flex items-center justify-between mb-6">
         <div>
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Buyer Portal</p>
@@ -17,11 +16,12 @@
 
         {{-- Table header --}}
         <div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-slate-100 bg-slate-50">
-            <div class="col-span-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Vehicle</div>
+            <div class="col-span-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Vehicle</div>
             <div class="col-span-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount Paid</div>
             <div class="col-span-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Method</div>
             <div class="col-span-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</div>
             <div class="col-span-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</div>
+            <div class="col-span-1 text-[10px] font-black text-slate-400 uppercase tracking-widest">Review</div>
         </div>
 
         {{-- Rows --}}
@@ -29,7 +29,7 @@
         <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-100 last:border-0 items-center hover:bg-slate-50/50 transition-colors">
 
             {{-- Vehicle --}}
-            <div class="col-span-4 flex items-center gap-3">
+            <div class="col-span-3 flex items-center gap-3">
                 <div class="w-10 h-10 bg-[#4ade80]/10 border border-[#4ade80]/20 rounded-xl flex items-center justify-center text-[10px] font-black text-[#16a34a] uppercase shrink-0">
                     {{ strtoupper($purchase->order->car->drivetrain) }}
                 </div>
@@ -68,20 +68,33 @@
                 <p class="text-[10px] text-slate-300 font-medium">{{ $purchase->purchased_at->diffForHumans() }}</p>
             </div>
 
+            {{-- Review --}}
+            <div class="col-span-1">
+                @php
+                    $alreadyReviewed = auth()->user()->reviews()
+                        ->where('car_id', $purchase->order->car->id)
+                        ->exists();
+                @endphp
+                @if($alreadyReviewed)
+                    <span class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest">✓ Done</span>
+                @else
+                    <a href="{{ route('buyer.reviews.create', $purchase->order->car) }}"
+                        class="inline-block text-[10px] font-black px-2.5 py-1.5 bg-slate-900 text-white rounded-lg uppercase tracking-widest hover:bg-[#16a34a] transition-all">
+                        Review
+                    </a>
+                @endif
+            </div>
+
         </div>
         @endforeach
 
     </div>
 
-    {{-- Pagination --}}
     @if($purchases->hasPages())
-    <div class="mt-5">
-        {{ $purchases->links() }}
-    </div>
+    <div class="mt-5">{{ $purchases->links() }}</div>
     @endif
 
     @else
-    {{-- Empty state --}}
     <div class="bg-white border border-dashed border-slate-200 rounded-2xl p-14 text-center">
         <p class="text-5xl mb-4">🚗</p>
         <p class="font-black text-slate-900 uppercase italic tracking-tight text-lg">No purchases yet</p>

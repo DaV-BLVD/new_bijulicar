@@ -13,11 +13,11 @@ class MarketplaceController extends Controller
             ->where('status', 'available')
             ->latest();
 
-        // Quick search bar (make or model)
+        // Quick search bar (brand or model)
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('make', 'like', "%{$search}%")
+                $q->where('brand', 'like', "%{$search}%")
                   ->orWhere('model', 'like', "%{$search}%");
             });
         }
@@ -32,9 +32,9 @@ class MarketplaceController extends Controller
             $query->where('location', $request->location);
         }
 
-        // Advanced: make
-        if ($request->filled('make')) {
-            $query->where('make', 'like', "%{$request->make}%");
+        // Advanced: brand
+        if ($request->filled('brand')) {
+            $query->where('brand', 'like', "%{$request->brand}%");
         }
 
         // Advanced: model

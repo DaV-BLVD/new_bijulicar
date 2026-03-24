@@ -71,9 +71,24 @@ Route::middleware(['auth', 'role:seller'])
     ->prefix('seller')
     ->name('seller.')
     ->group(function () {
-        Route::get('/dashboard', fn() => view('dashboard.seller', ['user' => auth()->user()]))->name('dashboard');
-    });
 
+        // Dashboard
+        Route::get('/dashboard', fn() => view('dashboard.seller', ['user' => auth()->user()]))->name('dashboard');
+
+        // Car listings (CRUD)
+        Route::get('/cars',                [App\Http\Controllers\Seller\SellerCarController::class, 'index'])->name('cars.index');
+        Route::get('/cars/create',         [App\Http\Controllers\Seller\SellerCarController::class, 'create'])->name('cars.create');
+        Route::post('/cars',               [App\Http\Controllers\Seller\SellerCarController::class, 'store'])->name('cars.store');
+        Route::get('/cars/{car}/edit',     [App\Http\Controllers\Seller\SellerCarController::class, 'edit'])->name('cars.edit');
+        Route::patch('/cars/{car}',        [App\Http\Controllers\Seller\SellerCarController::class, 'update'])->name('cars.update');
+        Route::delete('/cars/{car}',       [App\Http\Controllers\Seller\SellerCarController::class, 'destroy'])->name('cars.destroy');
+
+        // Orders on seller's listings
+        Route::get('/orders',                      [App\Http\Controllers\Seller\SellerOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}',              [App\Http\Controllers\Seller\SellerOrderController::class, 'show'])->name('orders.show');
+        Route::patch('/orders/{order}/confirm',    [App\Http\Controllers\Seller\SellerOrderController::class, 'confirm'])->name('orders.confirm');
+        Route::patch('/orders/{order}/cancel',     [App\Http\Controllers\Seller\SellerOrderController::class, 'cancel'])->name('orders.cancel');
+    });
 // ── BUSINESS routes ────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:business'])
     ->prefix('business')

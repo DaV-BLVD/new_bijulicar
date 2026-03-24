@@ -72,12 +72,12 @@
                         Advanced Parameters
                     </button>
 
-                    <div id="advanced-panel" class="{{ request()->hasAny(['make','model_name','year_from','year_to','price_min','price_max']) ? '' : 'hidden' }} relative mt-6 p-8 lg:p-10 bg-[#0f172a]/90 border border-white/10 rounded-[2rem] lg:rounded-[3rem] shadow-2xl backdrop-blur-xl overflow-hidden">
+                    <div id="advanced-panel" class="{{ request()->hasAny(['brand','model_name','year_from','year_to','price_min','price_max']) ? '' : 'hidden' }} relative mt-6 p-8 lg:p-10 bg-[#0f172a]/90 border border-white/10 rounded-[2rem] lg:rounded-[3rem] shadow-2xl backdrop-blur-xl overflow-hidden">
                         <div class="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 24px 24px;"></div>
                         <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                             <div class="space-y-3">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-[#4ade80]">Vehicle Make</label>
-                                <input type="text" name="make" value="{{ request('make') }}" placeholder="e.g. Tesla, BYD" class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-sm font-bold text-white placeholder:text-slate-600 focus:ring-2 focus:ring-[#4ade80]/20 outline-none">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-[#4ade80]">Vehicle brand</label>
+                                <input type="text" name="brand" value="{{ request('brand') }}" placeholder="e.g. Tesla, BYD" class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-sm font-bold text-white placeholder:text-slate-600 focus:ring-2 focus:ring-[#4ade80]/20 outline-none">
                             </div>
                             <div class="space-y-3">
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Model Name</label>

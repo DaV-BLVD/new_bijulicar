@@ -11,7 +11,7 @@ class Car extends Model
 {
     protected $fillable = [
         'seller_id',
-        'make',
+        'brand',
         'model',
         'year',
         'variant',
@@ -71,12 +71,24 @@ class Car extends Model
     /** e.g. "2024 Tesla Model 3 Long Range" */
     public function displayName(): string
     {
-        return "{$this->year} {$this->make} {$this->model}"
+        return "{$this->year} {$this->brand} {$this->model}"
             . ($this->variant ? " {$this->variant}" : '');
     }
 
     public function isAvailable(): bool
     {
         return $this->status === 'available';
+    }
+
+    /** All images for this car */
+    public function images(): HasMany
+    {
+        return $this->hasMany(CarImage::class)->orderBy('sort_order');
+    }
+
+    /** The primary/cover image */
+    public function primaryImage(): HasOne
+    {
+        return $this->hasOne(CarImage::class)->where('is_primary', true);
     }
 }
