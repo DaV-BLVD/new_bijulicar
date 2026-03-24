@@ -93,208 +93,166 @@
     </section>
 
     <section class="py-24 bg-[#f8fafc]">
-    <div class="max-w-7xl mx-auto px-6">
-        
-        <div class="mb-12">
-            <h2 class="text-4xl font-black text-slate-900 uppercase italic tracking-tighter">
-                Loan <span class="text-[#16a34a]">Intelligence</span>
-            </h2>
-            <p class="text-slate-500 font-medium mt-2">Precision financing tools for your next vehicle acquisition.</p>
-        </div>
+        <div class="max-w-7xl mx-auto px-6">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
-            <div class="lg:col-span-7 space-y-10">
-                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#16a34a]"></span> Configuration
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Vehicle Price (NRs)</label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">NRs</span>
-                                <input type="number" value="50000" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-14 pr-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Down Payment (NRs)</label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">NRs</span>
-                                <input type="number" value="10000" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-14 pr-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
-                            </div>
-                            <p class="text-[9px] text-[#16a34a] font-bold uppercase tracking-wider mt-1 px-1">20.0% of total price</p>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Interest Rate (APR %)</label>
-                            <input type="number" value="4.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Loan Term</label>
-                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all appearance-none">
-                                <option>5 Years (60 Months)</option>
-                                <option>3 Years (36 Months)</option>
-                                <option>7 Years (84 Months)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-8 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Trade-in Value</label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">NRs</span>
-                                <input type="number" value="0" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-14 pr-4 text-slate-900 font-bold outline-none">
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Sales Tax (%)</label>
-                            <input type="number" value="8.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 font-bold outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-green-50/50 border border-green-100 p-6 rounded-3xl flex items-start gap-4">
-                    <span class="text-2xl">💡</span>
-                    <div>
-                        <h4 class="text-xs font-black text-[#16a34a] uppercase tracking-widest mb-1">Money-Saving Strategy</h4>
-                        <p class="text-slate-600 text-[13px] leading-relaxed">Increasing your down payment to <span class="font-bold text-slate-900">25%</span> could lower your monthly commitment by <span class="font-bold text-slate-900">NRs 85</span> and reduce total interest paid over the life of the loan.</p>
-                    </div>
-                </div>
+            <div class="mb-12">
+                <h2 class="text-4xl font-black text-slate-900 uppercase italic tracking-tighter">
+                    Loan <span class="text-[#16a34a]">Intelligence</span>
+                </h2>
+                <p class="text-slate-500 font-medium mt-2">Precision financing tools for your next vehicle acquisition.</p>
             </div>
 
-            <div class="lg:col-span-5 space-y-6 top-32">
-                
-                <div class="bg-slate-900 rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-green-900/20">
-                    <div class="absolute top-0 right-0 w-40 h-40 bg-[#4ade80]/10 blur-[80px] rounded-full -mr-20 -mt-20"></div>
-                    
-                    <div class="relative z-10">
-                        <span class="text-[10px] font-black text-[#4ade80] uppercase tracking-[0.4em] mb-10 block">Monthly Payment</span>
-                        
-                        <div class="flex items-baseline gap-2 mb-2">
-                            <span class="text-xl font-bold opacity-50">NRs</span>
-                            <span class="text-7xl font-black italic tracking-tighter leading-none">853</span>
-                        </div>
-                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Fixed for 60 Months • 4.5% APR</p>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-                        <div class="mt-12 space-y-4 pt-8 border-t border-white/10">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Loan Amount</span>
-                                <span class="text-sm font-black">NRs 45,750</span>
+                <div class="lg:col-span-7">
+                    <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm h-full">
+                        <h3
+                            class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-[#16a34a]"></span> Car Loan Configuration
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Vehicle
+                                    Price (NRs)</label>
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">NRs</span>
+                                    <input type="number" id="carPrice" value="500000"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-14 pr-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Total Interest</span>
-                                <span class="text-sm font-black text-[#4ade80]">NRs 5,425</span>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Down
+                                    Payment (NRs)</label>
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">NRs</span>
+                                    <input type="number" id="downPayment" value="100000"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-14 pr-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Payoff Date</span>
-                                <span class="text-sm font-black">March 16, 2031</span>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Interest
+                                    Rate (APR %)</label>
+                                <input type="number" id="interestRate" value="12"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Loan
+                                    Term</label>
+                                <select id="tenure"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4 text-slate-900 font-bold focus:ring-4 focus:ring-green-50 focus:border-[#16a34a] outline-none transition-all appearance-none">
+                                    <option value="5">5 Years (60 Months)</option>
+                                    <option value="3">3 Years (36 Months)</option>
+                                    <option value="7">7 Years (84 Months)</option>
+                                </select>
                             </div>
                         </div>
 
-                        <button class="w-full mt-10 py-5 bg-[#4ade80] text-black rounded-2xl font-black uppercase italic tracking-widest text-sm hover:bg-white transition-all active:scale-95 shadow-xl shadow-green-500/10">
-                            Download Full Schedule 💸
+                        <button onclick="calculateLoan()"
+                            class="mt-8 w-full py-4 bg-[#16a34a] text-white rounded-xl font-black uppercase tracking-widest text-sm hover:bg-green-600 transition-all shadow-lg shadow-green-900/20">
+                            Calculate Loan
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-[2.5rem] p-8">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Market Rate Guide</h4>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center p-4 rounded-xl bg-green-50/50 border border-green-100">
-                            <div class="flex items-center gap-3">
-                                <span class="text-lg">✅</span>
-                                <span class="text-xs font-bold text-slate-700">Excellent (750+)</span>
-                            </div>
-                            <span class="text-xs font-black text-[#16a34a]">2.5% - 4.0%</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 rounded-xl border border-slate-100">
-                            <div class="flex items-center gap-3">
-                                <span class="text-lg">👍</span>
-                                <span class="text-xs font-bold text-slate-700">Good (700-749)</span>
-                            </div>
-                            <span class="text-xs font-black text-slate-900">4.0% - 6.0%</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 rounded-xl border border-slate-100">
-                            <div class="flex items-center gap-3">
-                                <span class="text-lg">⚠️</span>
-                                <span class="text-xs font-bold text-slate-700">Fair (650-699)</span>
-                            </div>
-                            <span class="text-xs font-black text-slate-900">6.0% - 10.0%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <div class="lg:col-span-5">
+                    <div id="loanResult"
+                        class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl h-full flex flex-col justify-center transition-all duration-500 border border-slate-800">
+                        <div class="relative z-10">
+                            <span
+                                class="text-[10px] font-black text-[#4ade80] uppercase tracking-[0.4em] mb-4 block">Monthly
+                                Payment</span>
 
-            <div class="lg:col-span-12 mt-12 bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden shadow-sm">
-                <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-white sticky left-0">
-                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">Amortization Schedule (First 12 Months)</h3>
-                    <div class="flex gap-4">
-                        <button class="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-colors">Export CSV</button>
-                        <button class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest hover:underline">View Full 60 Months</button>
+                            <div class="flex items-baseline gap-2 mb-2">
+                                <span class="text-xl font-bold opacity-50">NRs</span>
+                                <span id="monthlyEMI"
+                                    class="text-5xl font-black italic tracking-tighter leading-none text-slate-700">----</span>
+                            </div>
+
+                            <p id="emiDetails" class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                                Awaiting configuration...</p>
+
+                            <div class="mt-8 space-y-6 pt-8 border-t border-white/5">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Loan
+                                        Amount</span>
+                                    <span id="loanAmount" class="text-sm font-bold text-slate-600">----</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Total
+                                        Interest</span>
+                                    <span id="totalInterest" class="text-sm font-bold text-slate-600">----</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Total
+                                        Repayment</span>
+                                    <span id="totalRepayment" class="text-sm font-bold text-slate-600">----</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="glowEffect"
+                            class="absolute -bottom-20 -right-20 w-64 h-64 bg-green-500/5 rounded-full blur-[100px] transition-all duration-700">
+                        </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left min-w-[800px]">
-                        <thead>
-                            <tr class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
-                                <th class="px-8 py-5">Month</th>
-                                <th class="px-8 py-5">Payment</th>
-                                <th class="px-8 py-5">Principal Content</th>
-                                <th class="px-8 py-5">Interest Paid</th>
-                                <th class="px-8 py-5">Remaining Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm font-bold text-slate-700">
-                            <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                <td class="px-8 py-5 text-slate-400 font-mono">01</td>
-                                <td class="px-8 py-5">NRs 852.91</td>
-                                <td class="px-8 py-5 text-[#16a34a]">NRs 681.35</td>
-                                <td class="px-8 py-5 text-red-400">NRs 171.56</td>
-                                <td class="px-8 py-5 text-slate-900">NRs 45,069</td>
-                            </tr>
-                            <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                <td class="px-8 py-5 text-slate-400 font-mono">02</td>
-                                <td class="px-8 py-5">NRs 852.91</td>
-                                <td class="px-8 py-5 text-[#16a34a]">NRs 683.91</td>
-                                <td class="px-8 py-5 text-red-400">NRs 169.00</td>
-                                <td class="px-8 py-5 text-slate-900">NRs 44,385</td>
-                            </tr>
-                            <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                <td class="px-8 py-5 text-slate-400 font-mono">03</td>
-                                <td class="px-8 py-5">NRs 852.91</td>
-                                <td class="px-8 py-5 text-[#16a34a]">NRs 686.47</td>
-                                <td class="px-8 py-5 text-red-400">NRs 166.44</td>
-                                <td class="px-8 py-5 text-slate-900">NRs 43,698</td>
-                            </tr>
-                            <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                <td class="px-8 py-5 text-slate-400 font-mono">04</td>
-                                <td class="px-8 py-5">NRs 852.91</td>
-                                <td class="px-8 py-5 text-[#16a34a]">NRs 689.05</td>
-                                <td class="px-8 py-5 text-red-400">NRs 163.86</td>
-                                <td class="px-8 py-5 text-slate-900">NRs 43,009</td>
-                            </tr>
-                            <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                                <td class="px-8 py-5 text-slate-400 font-mono">05</td>
-                                <td class="px-8 py-5">NRs 852.91</td>
-                                <td class="px-8 py-5 text-[#16a34a]">NRs 691.63</td>
-                                <td class="px-8 py-5 text-red-400">NRs 161.28</td>
-                                <td class="px-8 py-5 text-slate-900">NRs 42,318</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="p-6 bg-slate-50/50 text-center">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                        Values shown are estimates. Actual loan terms may vary based on lender approval.
-                    </p>
-                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <script>
+        function calculateLoan() {
+            // Inputs
+            let carPrice = parseFloat(document.getElementById('carPrice').value);
+            let downPayment = parseFloat(document.getElementById('downPayment').value);
+            let rawInterest = parseFloat(document.getElementById('interestRate').value);
+            let interestRate = rawInterest / 100 / 12; // monthly rate
+            let tenureYears = parseInt(document.getElementById('tenure').value);
+            let tenureMonths = tenureYears * 12;
+
+            let principal = carPrice - downPayment;
+
+            if (principal <= 0 || isNaN(principal) || rawInterest <= 0) {
+                alert("Please enter valid loan parameters.");
+                return;
+            }
+
+            // EMI Formula
+            let emi = (principal * interestRate * Math.pow(1 + interestRate, tenureMonths)) /
+                (Math.pow(1 + interestRate, tenureMonths) - 1);
+
+            let totalRepayment = emi * tenureMonths;
+            let totalInterest = totalRepayment - principal;
+
+            // UI Updates: Remove placeholder colors and add "Live" colors
+            const emiEl = document.getElementById('monthlyEMI');
+            const card = document.getElementById('loanResult');
+            const glow = document.getElementById('glowEffect');
+
+            // Text Content Updates
+            emiEl.innerText = Math.round(emi).toLocaleString();
+            document.getElementById('emiDetails').innerText = `Fixed for ${tenureMonths} Months • ${rawInterest}% APR`;
+            document.getElementById('loanAmount').innerText = 'NRs ' + principal.toLocaleString();
+            document.getElementById('totalInterest').innerText = 'NRs ' + Math.round(totalInterest).toLocaleString();
+            document.getElementById('totalRepayment').innerText = 'NRs ' + Math.round(totalRepayment).toLocaleString();
+
+            // Visual Polish
+            emiEl.classList.remove('text-slate-700');
+            emiEl.classList.add('text-white');
+
+            document.querySelectorAll('#loanResult span.text-slate-600').forEach(el => {
+                el.classList.remove('text-slate-600');
+                el.classList.add('text-white');
+            });
+
+            card.classList.add('shadow-green-900/20');
+            glow.classList.replace('bg-green-500/5', 'bg-green-500/20');
+        }
+    </script>
 @endsection

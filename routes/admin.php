@@ -43,6 +43,9 @@ Route::prefix('admin')
                 Route::post('/contact-messages/{id}/read', [App\Http\Controllers\Admin\ContactMessageController::class, 'markAsRead'])->name('contact_messages.read');
                 Route::post('/contact-messages/{id}/undo', [App\Http\Controllers\Admin\ContactMessageController::class, 'undoRead'])->name('contact_messages.undo');
                 Route::delete('/contact-messages/{id}', [App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])->name('contact_messages.destroy');
+
+                // news 
+                Route::resource('news', \App\Http\Controllers\Admin\NewsArticleController::class);
             });
 
             // 4. Staff Management (Superadmin ONLY)

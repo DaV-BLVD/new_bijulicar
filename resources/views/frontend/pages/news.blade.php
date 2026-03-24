@@ -3,7 +3,6 @@
 @section('content')
     {{-- News Header --}}
     <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-[#0a0f1e] text-white">
-
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/news_header.jpg') }}"
                 class="w-full h-full object-cover opacity-100 scale-105 blur-[3px]" alt="Automotive News Background">
@@ -12,11 +11,11 @@
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-
                 <div class="max-w-3xl">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="w-12 h-[3px] bg-[#4ade80]"></span>
-                        <span class="text-[10px] lg:text-[12px] uppercase tracking-[0.5em] text-[#4ade80] font-bold">The Intelligence Hub</span>
+                        <span class="text-[10px] lg:text-[12px] uppercase tracking-[0.5em] text-[#4ade80] font-bold">The
+                            Intelligence Hub</span>
                     </div>
 
                     <h1 class="text-6xl md:text-8xl font-black tracking-tighter uppercase italic leading-[0.8] mb-8">
@@ -66,6 +65,119 @@
             </div>
         </div>
     </section>
+    <div class="space-y-32 pb-24">
+        @foreach ($articles as $article)
+            <section class="news-article">
+                {{-- Header --}}
+                <header class="pt-16 pb-12 max-w-4xl mx-auto px-6 text-center">
+                    <div class="flex justify-center gap-2 mb-6">
+                        @if ($article->badge_text)
+                            <span
+                                class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                {{ $article->badge_text }}
+                            </span>
+                        @endif
+                        @if ($article->read_time)
+                            <span class="text-slate-400 text-[10px] font-black uppercase tracking-widest self-center">
+                                {{ $article->read_time }}
+                            </span>
+                        @endif
+                    </div>
 
-    {{-- News Content Grid starts here --}}
+                    <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-8">
+                        {{ $article->title }}
+                    </h1>
+
+                    <div class="flex items-center justify-center gap-4">
+                        @if ($article->author_image)
+                            <img src="{{ asset('storage/' . $article->author_image) }}"
+                                class="w-10 h-10 rounded-full object-cover">
+                        @endif
+                        <div class="text-left">
+                            <p class="text-sm font-bold text-slate-900 m-0 leading-tight">{{ $article->author_name }}</p>
+                            <p class="text-xs text-slate-400 m-0">{{ $article->author_role }}</p>
+                        </div>
+                    </div>
+                </header>
+
+                {{-- Hero Image --}}
+                @if ($article->hero_image)
+                    <div class="max-w-7xl mx-auto px-6 mb-16">
+                        <div class="rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] md:h-[700px]">
+                            <img src="{{ asset('storage/' . $article->hero_image) }}" class="w-full h-full object-cover">
+                        </div>
+                        @if ($article->hero_caption)
+                            <p class="text-center text-slate-400 text-xs mt-4 italic">{{ $article->hero_caption }}</p>
+                        @endif
+                    </div>
+                @endif
+
+                {{-- Main Layout --}}
+                <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 relative">
+
+                    {{-- Left Sidebar (Social) --}}
+                    <aside class="hidden lg:block lg:col-span-1">
+                        <div class="sticky top-32 space-y-6">
+                            <button
+                                class="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all">FB</button>
+                            <button
+                                class="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all">TW</button>
+                            <button
+                                class="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all">🔗</button>
+                        </div>
+                    </aside>
+
+                    {{-- Content Column --}}
+                    <article class="lg:col-span-7 prose prose-slate prose-lg max-w-none pb-24">
+                        <div class="drop-cap">
+                            {!! $article->content_html !!}
+                        </div>
+                    </article>
+
+                    {{-- Right Sidebar (Specs & Related) --}}
+                    <aside class="lg:col-span-4 space-y-12">
+                        @if ($article->vehicle_specs)
+                            <div class="bg-slate-50 rounded-[2rem] p-8 border border-slate-100">
+                                <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Vehicle Specs
+                                </h4>
+                                <div class="space-y-4">
+                                    @foreach ($article->vehicle_specs as $spec)
+                                        <div class="flex justify-between border-b border-slate-200 pb-2 last:border-0">
+                                            <span class="text-sm font-medium text-slate-500">{{ $spec['key'] }}</span>
+                                            <span class="text-sm font-bold text-slate-900">{{ $spec['value'] }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="space-y-6">
+                            <h4 class="text-xs font-black uppercase tracking-widest text-slate-400">Keep Reading</h4>
+                            {{-- This section can be populated with other articles --}}
+                            @foreach ($article->related_articles as $related)
+                                <div class="flex gap-4 group cursor-pointer">
+                                    <img src="{{ asset('storage/' . $related['image']) }}"
+                                        class="w-20 h-20 rounded-2xl object-cover">
+                                    <div>
+                                        <h5 class="text-sm font-bold group-hover:text-green-600 transition-colors">
+                                            {{ $related['title'] }}</h5>
+                                        <p class="text-[10px] text-slate-400 uppercase font-black mt-1">
+                                            {{ $related['category'] }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </aside>
+                </div>
+            </section>
+            @if (!$loop->last)
+                <hr class="border-slate-100 max-w-7xl mx-auto px-6">
+            @endif
+        @endforeach
+
+        {{-- Pagination --}}
+        <div class="mt-12 flex justify-center">
+            {{ $articles->links() }}
+        </div>
+    </div>
 @endsection
