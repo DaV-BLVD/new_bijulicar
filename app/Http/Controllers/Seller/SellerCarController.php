@@ -40,7 +40,7 @@ class SellerCarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'brand'             => ['required', 'string', 'max:100'],
+            'brand'            => ['required', 'string', 'max:100'],
             'model'            => ['required', 'string', 'max:100'],
             'year'             => ['required', 'integer', 'min:1990', 'max:' . (date('Y') + 1)],
             'variant'          => ['nullable', 'string', 'max:100'],
@@ -54,14 +54,14 @@ class SellerCarController extends Controller
             'price_negotiable' => ['boolean'],
             'location'         => ['required', 'string', 'max:100'],
             'description'      => ['nullable', 'string', 'max:2000'],
+            'stock_quantity'   => ['required', 'integer', 'min:1', 'max:1000'],
             'images'           => ['nullable', 'array', 'max:8'],
-            'images.*'         => ['image', 'mimes:jpg,jpeg,png,webp', 'max:3072'], // 3MB per image
+            'images.*'         => ['image', 'mimes:jpg,jpeg,png,webp', 'max:3072'],
         ]);
 
-        // Create the car listing
         $car = Car::create([
             'seller_id'        => Auth::id(),
-            'brand'             => $request->brand,
+            'brand'            => $request->brand,
             'model'            => $request->model,
             'year'             => $request->year,
             'variant'          => $request->variant,
@@ -76,6 +76,7 @@ class SellerCarController extends Controller
             'location'         => $request->location,
             'description'      => $request->description,
             'status'           => 'available',
+            'stock_quantity'   => $request->stock_quantity,
         ]);
 
         // Handle image uploads
@@ -83,15 +84,14 @@ class SellerCarController extends Controller
             foreach ($request->file('images') as $index => $file) {
                 $path = $file->store('car-images', 'public');
 
-                $image = CarImage::create([
+                CarImage::create([
                     'car_id'     => $car->id,
                     'path'       => $path,
                     'alt'        => $car->displayName(),
                     'sort_order' => $index,
-                    'is_primary' => $index === 0, // first image is the cover
+                    'is_primary' => $index === 0,
                 ]);
 
-                // Sync primary image path to cars table
                 if ($index === 0) {
                     $car->update(['primary_image' => $path]);
                 }
@@ -100,7 +100,7 @@ class SellerCarController extends Controller
 
         return redirect()
             ->route('seller.cars.index')
-            ->with('success', "Listing for {$car->displayName()} created successfully.");
+            ->with('success', "{$car->displayName()} listed successfully with {$car->stock_quantity} unit(s).");
     }
 
     /**
@@ -108,7 +108,6 @@ class SellerCarController extends Controller
      */
     public function edit(Car $car)
     {
-        // Make sure this car belongs to the logged-in seller
         abort_if($car->seller_id !== Auth::id(), 403);
 
         $car->load('images');
@@ -124,7 +123,7 @@ class SellerCarController extends Controller
         abort_if($car->seller_id !== Auth::id(), 403);
 
         $request->validate([
-            'brand'             => ['required', 'string', 'max:100'],
+            'brand'            => ['required', 'string', 'max:100'],
             'model'            => ['required', 'string', 'max:100'],
             'year'             => ['required', 'integer', 'min:1990', 'max:' . (date('Y') + 1)],
             'variant'          => ['nullable', 'string', 'max:100'],
@@ -139,14 +138,21 @@ class SellerCarController extends Controller
             'location'         => ['required', 'string', 'max:100'],
             'description'      => ['nullable', 'string', 'max:2000'],
             'status'           => ['required', 'in:available,reserved,inactive'],
+            'stock_quantity'   => ['required', 'integer', 'min:0', 'max:1000'],
             'new_images'       => ['nullable', 'array', 'max:8'],
             'new_images.*'     => ['image', 'mimes:jpg,jpeg,png,webp', 'max:3072'],
             'remove_images'    => ['nullable', 'array'],
             'remove_images.*'  => ['exists:car_images,id'],
         ]);
 
+        // If seller sets stock back above 0 and status was sold, revert to available
+        $newStatus = $request->status;
+        if ($request->stock_quantity > 0 && $car->status === 'sold') {
+            $newStatus = 'available';
+        }
+
         $car->update([
-            'brand'             => $request->brand,
+            'brand'            => $request->brand,
             'model'            => $request->model,
             'year'             => $request->year,
             'variant'          => $request->variant,
@@ -160,14 +166,15 @@ class SellerCarController extends Controller
             'price_negotiable' => $request->boolean('price_negotiable'),
             'location'         => $request->location,
             'description'      => $request->description,
-            'status'           => $request->status,
+            'status'           => $newStatus,
+            'stock_quantity'   => $request->stock_quantity,
         ]);
 
         // Remove selected images
         if ($request->filled('remove_images')) {
             $car->images()
                 ->whereIn('id', $request->remove_images)
-                ->each(fn($img) => $img->delete()); // triggers Storage::delete via booted()
+                ->each(fn($img) => $img->delete());
         }
 
         // Upload new images
@@ -187,19 +194,17 @@ class SellerCarController extends Controller
             }
         }
 
-        // Re-sync primary image — always use the first remaining image
+        // Re-sync primary image
         $firstImage = $car->images()->orderBy('sort_order')->first();
-        $car->update([
-            'primary_image' => $firstImage?->path,
-            'is_primary'    => false, // reset old
-        ]);
+        $car->update(['primary_image' => $firstImage?->path]);
         if ($firstImage) {
+            $car->images()->update(['is_primary' => false]);
             $firstImage->update(['is_primary' => true]);
         }
 
         return redirect()
             ->route('seller.cars.index')
-            ->with('success', "Listing updated successfully.");
+            ->with('success', "Listing updated. Stock: {$car->fresh()->stock_quantity} unit(s).");
     }
 
     /**
@@ -209,7 +214,6 @@ class SellerCarController extends Controller
     {
         abort_if($car->seller_id !== Auth::id(), 403);
 
-        // Block deletion if car has active orders
         $hasActiveOrders = $car->orders()
             ->whereIn('status', ['pending', 'confirmed'])
             ->exists();
@@ -218,7 +222,6 @@ class SellerCarController extends Controller
 
         $name = $car->displayName();
 
-        // Images are deleted automatically via CarImage::booted() deleting hook
         $car->images->each(fn($img) => $img->delete());
         $car->delete();
 

@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- Back link --}}
     <a href="{{ route('buyer.orders.index') }}"
         class="inline-flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors mb-6">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -15,7 +14,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {{-- Left: Car details --}}
+        {{-- Left: Car details + payment record --}}
         <div class="lg:col-span-2 space-y-5">
 
             {{-- Car card --}}
@@ -23,8 +22,12 @@
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Vehicle</p>
 
                 <div class="flex items-start gap-4">
-                    <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-xs font-black text-slate-500 uppercase shrink-0">
-                        {{ strtoupper($order->car->drivetrain) }}
+                    <div class="w-16 h-16 bg-slate-100 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center">
+                        @if($order->car->primaryImage ?? false)
+                            <img src="{{ $order->car->primaryImage->url() }}" class="w-full h-full object-cover" alt="{{ $order->car->displayName() }}">
+                        @else
+                            <span class="text-2xl opacity-20">⚡</span>
+                        @endif
                     </div>
                     <div class="flex-1">
                         <h2 class="text-xl font-black text-slate-900 uppercase italic tracking-tight">
@@ -35,14 +38,10 @@
                             {{ $order->car->color ?? '—' }} ·
                             {{ $order->car->location }}
                         </p>
-
-                        {{-- Specs row --}}
                         <div class="flex flex-wrap gap-2 mt-3">
-                            @if($order->car->mileage !== null)
                             <span class="text-[10px] font-black px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg uppercase tracking-wider">
                                 {{ number_format($order->car->mileage) }} km
                             </span>
-                            @endif
                             @if($order->car->range_km)
                             <span class="text-[10px] font-black px-2.5 py-1 bg-[#4ade80]/10 text-[#16a34a] rounded-lg uppercase tracking-wider border border-[#4ade80]/20">
                                 ⚡ {{ $order->car->range_km }} km range
@@ -68,18 +67,18 @@
             {{-- Buyer notes --}}
             @if($order->notes)
             <div class="bg-white border border-slate-200 rounded-2xl p-6">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Your Notes to Seller</p>
-                <p class="text-sm text-slate-600 font-medium leading-relaxed">{{ $order->notes }}</p>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Your Note to Seller</p>
+                <p class="text-sm text-slate-600 font-medium leading-relaxed italic">"{{ $order->notes }}"</p>
             </div>
             @endif
 
-            {{-- Purchase record --}}
+            {{-- Payment record — shown after seller marks completed --}}
             @if($order->purchase)
             <div class="bg-[#4ade80]/10 border border-[#4ade80]/20 rounded-2xl p-6">
-                <p class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest mb-4">Payment Record</p>
+                <p class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest mb-4">Payment Confirmed</p>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount Paid</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount</p>
                         <p class="text-lg font-black text-slate-900 mt-1">{{ $order->purchase->formattedAmount() }}</p>
                     </div>
                     <div>
@@ -92,9 +91,17 @@
                         <p class="text-sm font-mono text-slate-700 mt-1">{{ $order->purchase->transaction_ref }}</p>
                     </div>
                     @endif
+                    @if($order->purchase->remarks)
+                    <div class="col-span-2">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Remarks</p>
+                        <p class="text-sm text-slate-600 font-medium mt-1">{{ $order->purchase->remarks }}</p>
+                    </div>
+                    @endif
                     <div>
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Paid On</p>
-                        <p class="text-sm font-black text-slate-900 mt-1">{{ $order->purchase->purchased_at->format('d M Y, h:i A') }}</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Completed On</p>
+                        <p class="text-sm font-black text-slate-900 mt-1">
+                            {{ $order->purchase->purchased_at->format('d M Y, h:i A') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -102,32 +109,31 @@
 
         </div>
 
-        {{-- Right: Order summary --}}
+        {{-- Right: Order summary + actions --}}
         <div class="space-y-5">
 
-            {{-- Status card --}}
+            {{-- Summary --}}
             <div class="bg-white border border-slate-200 rounded-2xl p-6">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Order Summary</p>
-
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Order ID</p>
+                        <p class="text-xs font-bold text-slate-400">Order ID</p>
                         <p class="text-xs font-mono text-slate-700">#{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Placed On</p>
+                        <p class="text-xs font-bold text-slate-400">Placed On</p>
                         <p class="text-xs font-bold text-slate-700">{{ $order->ordered_at->format('d M Y') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Seller</p>
+                        <p class="text-xs font-bold text-slate-400">Seller</p>
                         <p class="text-xs font-bold text-slate-700">{{ $order->car->seller->name }}</p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Total Price</p>
+                        <p class="text-xs font-bold text-slate-400">Total Price</p>
                         <p class="text-base font-black text-slate-900">{{ $order->car->formattedPrice() }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Status</p>
+                        <p class="text-xs font-bold text-slate-400">Status</p>
                         <span @class([
                             'text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider',
                             'bg-yellow-100 text-yellow-700'  => $order->status === 'pending',
@@ -139,26 +145,19 @@
                 </div>
             </div>
 
-            {{-- Actions card --}}
+            {{-- Actions --}}
             <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Actions</p>
 
-                {{-- Pay now button (only for confirmed orders without a purchase) --}}
-                @if($order->status === 'confirmed' && !$order->purchase)
-                <a href="{{ route('buyer.purchases.create', $order) }}"
-                    class="w-full flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-lg">
-                    💳 Pay Now
-                </a>
-                @endif
-
-                {{-- Write review (only after completed + no review yet) --}}
+                {{-- Write review after completed --}}
                 @if($order->status === 'completed')
                     @php
-                        $alreadyReviewed = auth()->user()->reviews()->where('car_id', $order->car_id)->exists();
+                        $alreadyReviewed = auth()->user()->reviews()
+                            ->where('car_id', $order->car_id)->exists();
                     @endphp
                     @if(!$alreadyReviewed)
                     <a href="{{ route('buyer.reviews.create', $order->car) }}"
-                        class="w-full flex items-center justify-center gap-2 bg-slate-100 text-slate-700 py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-200 transition-all">
+                        class="w-full flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-lg block text-center">
                         ⭐ Write a Review
                     </a>
                     @else
@@ -181,7 +180,7 @@
                 </form>
                 @endif
 
-                {{-- No actions available --}}
+                {{-- Cancelled state --}}
                 @if($order->status === 'cancelled')
                 <p class="text-center text-[11px] font-black text-slate-400 uppercase tracking-widest py-2">
                     This order was cancelled
@@ -189,6 +188,42 @@
                 @endif
 
             </div>
+
+            {{-- Status guide --}}
+            @if(in_array($order->status, ['pending', 'confirmed']))
+            <div class="bg-slate-900 rounded-2xl p-5">
+                <p class="text-[10px] font-black text-[#4ade80] uppercase tracking-widest mb-3">
+                    @if($order->status === 'pending') ⚡ Order Placed
+                    @else ⚡ Order Confirmed
+                    @endif
+                </p>
+                <ul class="space-y-2">
+                    @if($order->status === 'pending')
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Your order is waiting for the seller to confirm.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        You will see updates here once confirmed.
+                    </li>
+                    @else
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        The seller has confirmed your order.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Contact {{ $order->car->seller->name }} to arrange payment.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Once the seller receives payment they will mark it complete.
+                    </li>
+                    @endif
+                </ul>
+            </div>
+            @endif
 
         </div>
     </div>

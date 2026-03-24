@@ -42,31 +42,33 @@ class BuyerOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'car_id' => ['required', 'exists:cars,id'],
-            'notes'  => ['nullable', 'string', 'max:500'],
-        ]);
+    $request->validate([
+        'car_id' => ['required', 'exists:cars,id'],
+        'notes'  => ['nullable', 'string', 'max:500'],
+    ]);
 
-        $car = Car::findOrFail($request->car_id);
+    $car = Car::findOrFail($request->car_id);
 
-        // Car must be available
-        abort_if(!$car->isAvailable(), 422, 'This car is no longer available.');
+    // Car must be available
+    abort_if(!$car->isAvailable(), 422, 'This car is no longer available.');
 
-        // Buyer cannot order their own listing
-        abort_if($car->seller_id === Auth::id(), 422, 'You cannot order your own listing.');
+    // Car must have stock
+    abort_if(!$car->inStock(), 422, 'This car is out of stock.');
 
-        // Create the order — price is snapshotted from the car right now
-        $order = Order::create([
-            'buyer_id'    => Auth::id(),
-            'car_id'      => $car->id,
-            'status'      => 'pending',
-            'total_price' => $car->price,
-            'notes'       => $request->notes,
-        ]);
+    // Buyer cannot order their own listing
+    abort_if($car->seller_id === Auth::id(), 422, 'You cannot order your own listing.');
 
-        return redirect()
-            ->route('buyer.orders.show', $order)
-            ->with('success', 'Order placed! The seller will confirm shortly.');
+    $order = Order::create([
+        'buyer_id'    => Auth::id(),
+        'car_id'      => $car->id,
+        'status'      => 'pending',
+        'total_price' => $car->price,
+        'notes'       => $request->notes,
+    ]);
+
+    return redirect()
+        ->route('buyer.orders.show', $order)
+        ->with('success', 'Order placed! The seller will confirm shortly.');
     }
 
     /**

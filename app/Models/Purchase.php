@@ -14,6 +14,7 @@ class Purchase extends Model
         'payment_status',
         'amount_paid',
         'transaction_ref',
+        'remarks',
         'purchased_at',
     ];
 
@@ -55,12 +56,12 @@ class Purchase extends Model
     /** Human readable payment method e.g. "Bank Transfer" */
     public function paymentMethodLabel(): string
     {
-        return match ($this->payment_method) {
-            'cash'          => 'Cash',
-            'bank_transfer' => 'Bank Transfer',
-            'emi'           => 'EMI',
-            'other'         => 'Other',
-            default         => 'Unknown',
+    return match ($this->payment_method) {
+        'cash'          => 'Cash',
+        'bank_transfer' => 'Bank Transfer',
+        'emi'           => 'EMI',
+        'other'         => 'Other',
+        default         => 'Unknown',
         };
     }
 }

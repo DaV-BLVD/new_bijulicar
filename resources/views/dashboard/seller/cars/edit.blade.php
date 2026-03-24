@@ -129,7 +129,7 @@
                             <label class="absolute top-1 right-1 cursor-pointer">
                                 <input type="checkbox" name="remove_images[]" value="{{ $image->id }}" class="sr-only peer">
                                 <div class="w-6 h-6 bg-white/80 peer-checked:bg-red-500 rounded-lg flex items-center justify-center transition-all border border-slate-200 peer-checked:border-red-500">
-                                    <svg class="w-3 h-3 text-slate-400 peer-checked:text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    <svg class="w-3 h-3 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
                                     <svg class="w-3 h-3 text-slate-400 block peer-checked:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                 </div>
                             </label>
@@ -150,9 +150,10 @@
 
             </div>
 
-            {{-- Right: Price + location + status --}}
+            {{-- Right: Price, stock, location, status --}}
             <div class="space-y-5">
 
+                {{-- Pricing --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Pricing</p>
                     <div class="space-y-4">
@@ -171,6 +172,27 @@
                     </div>
                 </div>
 
+                {{-- Stock --}}
+                <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Stock</p>
+                    <p class="text-xs text-slate-400 font-medium mb-4">
+                        Current stock: <span class="font-black text-slate-700">{{ $car->stock_quantity }} unit(s)</span>
+                    </p>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Update Quantity <span class="text-red-400">*</span></label>
+                        <input type="number" name="stock_quantity" value="{{ old('stock_quantity', $car->stock_quantity) }}" min="0" max="1000"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
+                        @error('stock_quantity')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
+                    </div>
+                    @if($car->status === 'sold')
+                    <div class="mt-3 p-3 bg-yellow-50 border border-yellow-100 rounded-xl">
+                        <p class="text-[10px] font-black text-yellow-700 uppercase tracking-widest">Sold Out</p>
+                        <p class="text-xs text-yellow-600 font-medium mt-0.5">Set quantity above 0 to relist this car.</p>
+                    </div>
+                    @endif
+                </div>
+
+                {{-- Location --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Location</p>
                     <div class="space-y-2">
@@ -181,6 +203,7 @@
                     </div>
                 </div>
 
+                {{-- Status --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Listing Status</p>
                     <select name="status" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">

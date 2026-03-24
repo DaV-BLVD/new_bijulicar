@@ -27,6 +27,7 @@ class Car extends Model
         'description',
         'primary_image',
         'status',
+        'stock_quantity',
     ];
 
     protected function casts(): array
@@ -37,6 +38,7 @@ class Car extends Model
             'mileage'          => 'integer',
             'range_km'         => 'integer',
             'battery_kwh'      => 'integer',
+            'stock_quantity'   => 'integer',
         ];
     }
 
@@ -91,4 +93,20 @@ class Car extends Model
     {
         return $this->hasOne(CarImage::class)->where('is_primary', true);
     }
+
+    /** Check if the car has stock available */
+    public function inStock(): bool
+    {
+        return $this->stock_quantity > 0 && $this->status === 'available';
+    }
+
+    /** Reduce stock by 1 after a purchase. Auto-marks sold when stock hits 0 */
+    public function decrementStock(): void
+    {
+        $this->decrement('stock_quantity');
+
+        if ($this->stock_quantity <= 0) {
+            $this->update(['status' => 'sold']);
+        }
+}
 }

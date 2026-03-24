@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,6 @@ class SellerOrderController extends Controller
      */
     public function show(Order $order)
     {
-        // Make sure this order is for one of the seller's cars
         abort_if($order->car->seller_id !== Auth::id(), 403);
 
         $order->load('car', 'buyer', 'purchase');
@@ -49,7 +49,59 @@ class SellerOrderController extends Controller
 
         return redirect()
             ->route('seller.orders.show', $order)
-            ->with('success', "Order confirmed. The buyer can now proceed with payment.");
+            ->with('success', 'Order confirmed. Once you receive payment, mark it as completed.');
+    }
+
+    /**
+     * Show the completion form where seller records payment details.
+     */
+    public function completeForm(Order $order)
+    {
+        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->status !== 'confirmed', 422, 'Only confirmed orders can be marked as completed.');
+        abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
+
+        $order->load('car', 'buyer');
+
+        return view('dashboard.seller.orders.complete', compact('order'));
+    }
+
+    /**
+     * Save payment details and mark the order as completed.
+     */
+    public function complete(Request $request, Order $order)
+    {
+        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->status !== 'confirmed', 422, 'Only confirmed orders can be marked as completed.');
+        abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
+
+        $request->validate([
+            'payment_method'  => ['required', 'in:cash,bank_transfer,emi,other'],
+            'amount_paid'     => ['required', 'integer', 'min:1'],
+            'transaction_ref' => ['nullable', 'string', 'max:255'],
+            'remarks'         => ['nullable', 'string', 'max:500'],
+        ]);
+
+        // Create the purchase record from the seller side
+        Purchase::create([
+            'order_id'        => $order->id,
+            'buyer_id'        => $order->buyer_id,
+            'payment_method'  => $request->payment_method,
+            'payment_status'  => 'paid',
+            'amount_paid'     => $request->amount_paid,
+            'transaction_ref' => $request->transaction_ref,
+            'remarks'         => $request->remarks,
+        ]);
+
+        // Mark order as completed
+        $order->update(['status' => 'completed']);
+
+        // Reduce stock — auto-marks car as sold if stock hits 0
+        $order->car->decrementStock();
+
+        return redirect()
+            ->route('seller.orders.show', $order)
+            ->with('success', 'Order marked as completed. Payment recorded successfully.');
     }
 
     /**
@@ -62,7 +114,6 @@ class SellerOrderController extends Controller
 
         $order->update(['status' => 'cancelled']);
 
-        // If car was reserved, make it available again
         if ($order->car->status === 'reserved') {
             $order->car->update(['status' => 'available']);
         }

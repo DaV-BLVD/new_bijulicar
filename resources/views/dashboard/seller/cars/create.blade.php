@@ -21,11 +21,10 @@
                 {{-- Basic info --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Vehicle Details</p>
-
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">brand <span class="text-red-400">*</span></label>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Brand <span class="text-red-400">*</span></label>
                             <input type="text" name="brand" value="{{ old('brand') }}" placeholder="e.g. BYD, Tesla"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                             @error('brand')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
@@ -82,7 +81,6 @@
                 {{-- Specs --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Specifications</p>
-
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2">
@@ -135,12 +133,12 @@
 
             </div>
 
-            {{-- Right: Price + location --}}
+            {{-- Right: Price, stock, location --}}
             <div class="space-y-5">
 
+                {{-- Pricing --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Pricing</p>
-
                     <div class="space-y-4">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Price (NRs) <span class="text-red-400">*</span></label>
@@ -148,7 +146,6 @@
                                 class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                             @error('price')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
                         </div>
-
                         <label class="flex items-center gap-3 cursor-pointer">
                             <input type="checkbox" name="price_negotiable" value="1"
                                 class="w-4 h-4 rounded border-slate-300 text-[#16a34a] focus:ring-[#4ade80]"
@@ -158,6 +155,24 @@
                     </div>
                 </div>
 
+                {{-- Stock --}}
+                <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Stock</p>
+                    <p class="text-xs text-slate-400 font-medium mb-4">How many units of this vehicle do you have available to sell?</p>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Quantity <span class="text-red-400">*</span></label>
+                        <input type="number" name="stock_quantity" value="{{ old('stock_quantity', 1) }}" min="1" max="1000"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
+                        @error('stock_quantity')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
+                    </div>
+                    <!-- <div class="mt-3 p-3 bg-slate-50 rounded-xl">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Examples</p>
+                        <p class="text-xs text-slate-500 font-medium">Private seller with 1 car → <span class="font-black text-slate-700">1</span></p>
+                        <p class="text-xs text-slate-500 font-medium mt-1">Dealership with 5 units → <span class="font-black text-slate-700">5</span></p>
+                    </div> -->
+                </div>
+
+                {{-- Location --}}
                 <div class="bg-white border border-slate-200 rounded-2xl p-6">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">Location</p>
                     <div class="space-y-2">
@@ -173,7 +188,6 @@
                     class="w-full flex items-center justify-center gap-3 bg-slate-900 text-white py-4 rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-xl">
                     Publish Listing →
                 </button>
-
                 <p class="text-center text-[10px] font-bold text-slate-300 uppercase tracking-widest">
                     Your listing goes live immediately after publishing.
                 </p>

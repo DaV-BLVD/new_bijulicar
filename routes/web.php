@@ -56,10 +56,9 @@ Route::middleware(['auth', 'role:buyer'])
         Route::get('/orders/{order}', [BuyerOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/cancel', [BuyerOrderController::class, 'cancel'])->name('orders.cancel');
 
+        
         // Purchases
         Route::get('/purchases', [BuyerPurchaseController::class, 'index'])->name('purchases.index');
-        Route::get('/purchases/{order}/pay', [BuyerPurchaseController::class, 'create'])->name('purchases.create');
-        Route::post('/purchases/{order}/pay', [BuyerPurchaseController::class, 'store'])->name('purchases.store');
 
         // Reviews
         Route::get('/reviews', [BuyerReviewController::class, 'index'])->name('reviews.index');
@@ -88,17 +87,40 @@ Route::middleware(['auth', 'role:seller'])
         Route::delete('/cars/{car}',       [App\Http\Controllers\Seller\SellerCarController::class, 'destroy'])->name('cars.destroy');
 
         // Orders on seller's listings
-        Route::get('/orders',                      [App\Http\Controllers\Seller\SellerOrderController::class, 'index'])->name('orders.index');
-        Route::get('/orders/{order}',              [App\Http\Controllers\Seller\SellerOrderController::class, 'show'])->name('orders.show');
-        Route::patch('/orders/{order}/confirm',    [App\Http\Controllers\Seller\SellerOrderController::class, 'confirm'])->name('orders.confirm');
-        Route::patch('/orders/{order}/cancel',     [App\Http\Controllers\Seller\SellerOrderController::class, 'cancel'])->name('orders.cancel');
+        Route::get('/orders',                         [App\Http\Controllers\Seller\SellerOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}',                 [App\Http\Controllers\Seller\SellerOrderController::class, 'show'])->name('orders.show');
+        Route::patch('/orders/{order}/confirm',       [App\Http\Controllers\Seller\SellerOrderController::class, 'confirm'])->name('orders.confirm');
+        Route::patch('/orders/{order}/cancel',        [App\Http\Controllers\Seller\SellerOrderController::class, 'cancel'])->name('orders.cancel');
+        Route::get('/orders/{order}/complete',        [App\Http\Controllers\Seller\SellerOrderController::class, 'completeForm'])->name('orders.complete.form');
+        Route::post('/orders/{order}/complete',       [App\Http\Controllers\Seller\SellerOrderController::class, 'complete'])->name('orders.complete');
     });
 // ── BUSINESS routes ────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:business'])
     ->prefix('business')
     ->name('business.')
     ->group(function () {
+
+        // Dashboard
         Route::get('/dashboard', fn() => view('dashboard.business', ['user' => auth()->user()]))->name('dashboard');
+
+        // Car listings (CRUD) — reuses SellerCarController, business users share the same seller_id column
+        Route::get('/cars',                [App\Http\Controllers\Seller\SellerCarController::class, 'index'])->name('cars.index');
+        Route::get('/cars/create',         [App\Http\Controllers\Seller\SellerCarController::class, 'create'])->name('cars.create');
+        Route::post('/cars',               [App\Http\Controllers\Seller\SellerCarController::class, 'store'])->name('cars.store');
+        Route::get('/cars/{car}/edit',     [App\Http\Controllers\Seller\SellerCarController::class, 'edit'])->name('cars.edit');
+        Route::patch('/cars/{car}',        [App\Http\Controllers\Seller\SellerCarController::class, 'update'])->name('cars.update');
+        Route::delete('/cars/{car}',       [App\Http\Controllers\Seller\SellerCarController::class, 'destroy'])->name('cars.destroy');
+
+        // Orders on business's listings — reuses SellerOrderController
+        Route::get('/orders',                         [App\Http\Controllers\Seller\SellerOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}',                 [App\Http\Controllers\Seller\SellerOrderController::class, 'show'])->name('orders.show');
+        Route::patch('/orders/{order}/confirm',       [App\Http\Controllers\Seller\SellerOrderController::class, 'confirm'])->name('orders.confirm');
+        Route::patch('/orders/{order}/cancel',        [App\Http\Controllers\Seller\SellerOrderController::class, 'cancel'])->name('orders.cancel');
+        Route::get('/orders/{order}/complete',        [App\Http\Controllers\Seller\SellerOrderController::class, 'completeForm'])->name('orders.complete.form');
+        Route::post('/orders/{order}/complete',       [App\Http\Controllers\Seller\SellerOrderController::class, 'complete'])->name('orders.complete');
+
+        // Analytics
+        Route::get('/analytics', [App\Http\Controllers\Business\BusinessAnalyticsController::class, 'index'])->name('analytics');
     });
 
 // ── Profile ────────────────────────────────────────────────────────────
