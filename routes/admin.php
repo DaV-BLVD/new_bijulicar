@@ -36,6 +36,13 @@ Route::prefix('admin')
 
                 // map location
                 Route::resource('/locations', App\Http\Controllers\Admin\LocationController::class)->except(['show']);
+
+                // contact messages
+                Route::get('/contact-messages', [App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('contact_messages.index');
+                Route::get('/contact-messages/{id}', [App\Http\Controllers\Admin\ContactMessageController::class, 'show'])->name('contact_messages.show');
+                Route::post('/contact-messages/{id}/read', [App\Http\Controllers\Admin\ContactMessageController::class, 'markAsRead'])->name('contact_messages.read');
+                Route::post('/contact-messages/{id}/undo', [App\Http\Controllers\Admin\ContactMessageController::class, 'undoRead'])->name('contact_messages.undo');
+                Route::delete('/contact-messages/{id}', [App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])->name('contact_messages.destroy');
             });
 
             // 4. Staff Management (Superadmin ONLY)

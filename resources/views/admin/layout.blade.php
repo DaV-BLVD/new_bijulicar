@@ -106,6 +106,20 @@
                             class="hide-on-collapse text-[10px] bg-rose-900/50 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800">Super</span>
                     </a>
                 @endcan
+
+                <a href="{{ route('admin.locations.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
+                       {{ request()->routeIs('admin.locations*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+                    <span class="font-bold w-5 text-center">M</span>
+                    <span class="hide-on-collapse">Map Location</span>
+                </a>
+
+                <a href="{{ route('admin.contact_messages.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
+                       {{ request()->routeIs('admin.contact_messages*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+                    <span class="font-bold w-5 text-center">C</span>
+                    <span class="hide-on-collapse">Contact Messages</span>
+                </a>
             </nav>
 
             <div class="p-3 border-t border-gray-800">

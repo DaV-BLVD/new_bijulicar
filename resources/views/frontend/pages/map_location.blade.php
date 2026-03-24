@@ -144,11 +144,6 @@
                                 </svg>
                             </div>
                         </div>
-
-                        <div id="asset-detail-card" class="hidden mt-3 pt-3 border-t border-slate-200">
-                            <p class="text-[8px] font-black text-indigo-500 uppercase tracking-widest mb-1">Address</p>
-                            <p id="target-address" class="text-[10px] font-bold text-slate-600 leading-tight">--</p>
-                        </div>
                     </div>
 
                     <div class="bg-slate-50 p-4 rounded-[1.5rem] border border-slate-100 space-y-2">

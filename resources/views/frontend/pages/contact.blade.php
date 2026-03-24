@@ -196,9 +196,14 @@
                         <h2 class="text-3xl font-black text-slate-900 uppercase italic tracking-tighter mb-2">Send us a
                             <span class="text-[#16a34a]">Message</span>
                         </h2>
+
+                        <div id="successMessage" class="hidden bg-green-100 text-green-700 p-4 rounded-lg mb-4"></div>
+
+                        <div id="errorMessage" class="hidden bg-red-100 text-red-700 p-4 rounded-lg"></div>
                     </div>
 
-                    <form action="#" class="p-10 space-y-6">
+
+                    {{-- <form action="#" class="p-10 space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full
@@ -244,6 +249,66 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
+                        </button>
+                    </form> --}}
+                    <form class="p-10 space-y-2" id="contactForm">
+                        @csrf
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                                    Full Name *
+                                </label>
+                                <input type="text" name="full_name" value="{{ old('full_name') }}"
+                                    placeholder="Your full name"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                                    Email Address *
+                                </label>
+                                <input type="email" name="email" value="{{ old('email') }}"
+                                    placeholder="name@domain.com"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                                    Phone Number
+                                </label>
+                                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="+977"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                                    Category *
+                                </label>
+                                <select name="category"
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4">
+
+                                    <option value="General Support">General Support</option>
+                                    <option value="Sales Team">Sales Team</option>
+                                    <option value="Technical Support">Technical Support</option>
+                                    <option value="Partnership">Partnership</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                                Your Message *
+                            </label>
+                            <textarea name="message" rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 px-4"
+                                placeholder="How can we help you?">{{ old('message') }}</textarea>
+                        </div>
+
+                        <button
+                            class="w-full py-5 bg-slate-900 text-white rounded-xl font-black uppercase italic tracking-widest text-sm">
+                            Send Transmission
                         </button>
                     </form>
                 </div>
@@ -517,6 +582,58 @@
             L.control.zoom({
                 position: 'bottomright'
             }).addTo(map);
+        });
+    </script>
+
+    {{-- script for ajax form submission --}}
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let form = this;
+            let formData = new FormData(form);
+
+            let successBox = document.getElementById('successMessage');
+            let errorBox = document.getElementById('errorMessage');
+
+            // reset messages
+            successBox.classList.add('hidden');
+            errorBox.classList.add('hidden');
+            errorBox.innerHTML = '';
+
+            fetch("{{ route('contact.store') }}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.success) {
+                        successBox.innerHTML = data.message;
+                        successBox.classList.remove('hidden');
+
+                        form.reset();
+                    }
+
+                    if (data.errors) {
+                        let errors = Object.values(data.errors).flat();
+
+                        errors.forEach(err => {
+                            errorBox.innerHTML += `<div>${err}</div>`;
+                        });
+
+                        errorBox.classList.remove('hidden');
+                    }
+
+                })
+                .catch(error => {
+                    errorBox.innerHTML = "Something went wrong.";
+                    errorBox.classList.remove('hidden');
+                });
         });
     </script>
 
