@@ -1,4 +1,4 @@
-@extends('dashboard.seller.layout')
+@extends($layout)
 @section('title', 'Incoming Orders')
 @section('page-title', 'Incoming Orders')
 
@@ -6,7 +6,7 @@
 
     <div class="flex items-center justify-between mb-6">
         <div>
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Seller Portal</p>
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ ucfirst($prefix) }} Portal</p>
             <p class="text-sm font-bold text-slate-600 mt-0.5">Orders placed by buyers on your listings.</p>
         </div>
     </div>
@@ -24,7 +24,7 @@
         </div>
 
         @foreach($orders as $order)
-        <a href="{{ route('seller.orders.show', $order) }}"
+        <a href="{{ route($prefix . '.orders.show', $order) }}"
             class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-100 last:border-0 items-center hover:bg-slate-50/50 transition-colors block">
 
             {{-- Vehicle --}}
@@ -85,7 +85,7 @@
         <p class="text-sm text-slate-500 font-medium mt-2 mb-6">
             Once buyers place orders on your listings they will appear here.
         </p>
-        <a href="{{ route('seller.cars.index') }}"
+        <a href="{{ route($prefix . '.cars.index') }}"
             class="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-lg">
             View My Listings →
         </a>

@@ -90,13 +90,13 @@
                 Analytics
             </a>
 
-            {{-- Advertisements — coming soon --}}
-            <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 cursor-not-allowed select-none"
-                 title="Coming soon">
+            {{-- Advertisements --}}
+            <a href="{{ route('business.advertisements.index') }}"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all
+                {{ request()->routeIs('business.advertisements*') ? 'bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
                 Advertisements
-                <span class="ml-auto text-[9px] bg-slate-800 text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded-full font-black uppercase tracking-wider">Soon</span>
-            </div>
+            </a>
 
             {{-- Bulk Operations — coming soon --}}
             <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 cursor-not-allowed select-none"

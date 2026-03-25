@@ -1,4 +1,4 @@
-@extends('dashboard.seller.layout')
+@extends($layout)
 @section('title', 'My Listings')
 @section('page-title', 'My Listings')
 
@@ -6,10 +6,10 @@
 
     <div class="flex items-center justify-between mb-6">
         <div>
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Seller Portal</p>
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ ucfirst($prefix) }} Portal</p>
             <p class="text-sm font-bold text-slate-600 mt-0.5">All vehicles you have listed on BijuliCar.</p>
         </div>
-        <a href="{{ route('seller.cars.create') }}"
+        <a href="{{ route($prefix . '.cars.create') }}"
             class="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-lg">
             + New Listing
         </a>
@@ -75,14 +75,14 @@
 
             {{-- Actions --}}
             <div class="col-span-1 flex justify-end items-center gap-1">
-                <a href="{{ route('seller.cars.edit', $car) }}"
+                <a href="{{ route($prefix . '.cars.edit', $car) }}"
                     class="w-8 h-8 bg-slate-100 hover:bg-slate-900 hover:text-white rounded-xl flex items-center justify-center transition-all group"
                     title="Edit">
                     <svg class="w-4 h-4 text-slate-500 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
                 </a>
-                <form method="POST" action="{{ route('seller.cars.destroy', $car) }}"
+                <form method="POST" action="{{ route($prefix . '.cars.destroy', $car) }}"
                     onsubmit="return confirm('Delete {{ $car->displayName() }}? This cannot be undone.')">
                     @csrf
                     @method('DELETE')
@@ -109,7 +109,7 @@
         <p class="text-5xl mb-4">🚗</p>
         <p class="font-black text-slate-900 uppercase italic tracking-tight text-lg">No listings yet</p>
         <p class="text-sm text-slate-500 font-medium mt-2 mb-6">Create your first listing to start selling on BijuliCar.</p>
-        <a href="{{ route('seller.cars.create') }}"
+        <a href="{{ route($prefix . '.cars.create') }}"
             class="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-lg">
             + Create First Listing
         </a>

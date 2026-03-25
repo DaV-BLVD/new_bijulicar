@@ -1,10 +1,10 @@
-@extends('dashboard.seller.layout')
+@extends($layout)
 @section('title', 'Mark as Completed')
 @section('page-title', 'Mark as Completed')
 
 @section('content')
 
-    <a href="{{ route('seller.orders.show', $order) }}"
+    <a href="{{ route($prefix . '.orders.show', $order) }}"
         class="inline-flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors mb-6">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -19,7 +19,7 @@
             <div class="bg-white border border-slate-200 rounded-2xl p-6">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Payment Details</p>
 
-                <form method="POST" action="{{ route('seller.orders.complete', $order) }}">
+                <form method="POST" action="{{ route($prefix . '.orders.complete', $order) }}">
                     @csrf
 
                     {{-- Payment method --}}
@@ -31,6 +31,8 @@
                             @foreach([
                                 'cash'          => '💵 Cash',
                                 'bank_transfer' => '🏦 Bank Transfer',
+                                'esewa'         => '🟢 eSewa',
+                                'khalti'        => '🟣 Khalti',
                                 'emi'           => '📅 EMI',
                                 'other'         => '💳 Other',
                             ] as $value => $label)
@@ -78,7 +80,7 @@
                         <input type="text"
                             name="transaction_ref"
                             value="{{ old('transaction_ref') }}"
-                            placeholder="e.g.Bank Ref: TXN-001"
+                            placeholder="e.g. eSewa Ref: ABC123 or Bank Ref: TXN-001"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                         @error('transaction_ref')
                             <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>

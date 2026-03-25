@@ -10,11 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class SellerOrderController extends Controller
 {
+    /** Detect which role is using this controller and return the correct route prefix and layout. */
+    private function context(): array
+    {
+        if (Auth::user()->hasRole('business')) {
+            return ['prefix' => 'business', 'layout' => 'dashboard.business.layout'];
+        }
+        return ['prefix' => 'seller', 'layout' => 'dashboard.seller.layout'];
+    }
+
     /**
      * Show all orders placed on this seller's cars.
      */
     public function index()
     {
+        $ctx = $this->context();
+
         $orders = Order::whereHas('car', function ($q) {
                 $q->where('seller_id', Auth::id());
             })
@@ -22,7 +33,7 @@ class SellerOrderController extends Controller
             ->latest('ordered_at')
             ->paginate(10);
 
-        return view('dashboard.seller.orders.index', compact('orders'));
+        return view('dashboard.seller.orders.index', array_merge(compact('orders'), $ctx));
     }
 
     /**
@@ -32,9 +43,11 @@ class SellerOrderController extends Controller
     {
         abort_if($order->car->seller_id !== Auth::id(), 403);
 
+        $ctx = $this->context();
+
         $order->load('car', 'buyer', 'purchase');
 
-        return view('dashboard.seller.orders.show', compact('order'));
+        return view('dashboard.seller.orders.show', array_merge(compact('order'), $ctx));
     }
 
     /**
@@ -47,8 +60,10 @@ class SellerOrderController extends Controller
 
         $order->update(['status' => 'confirmed']);
 
+        $prefix = $this->context()['prefix'];
+
         return redirect()
-            ->route('seller.orders.show', $order)
+            ->route($prefix . '.orders.show', $order)
             ->with('success', 'Order confirmed. Once you receive payment, mark it as completed.');
     }
 
@@ -61,9 +76,11 @@ class SellerOrderController extends Controller
         abort_if($order->status !== 'confirmed', 422, 'Only confirmed orders can be marked as completed.');
         abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
 
+        $ctx = $this->context();
+
         $order->load('car', 'buyer');
 
-        return view('dashboard.seller.orders.complete', compact('order'));
+        return view('dashboard.seller.orders.complete', array_merge(compact('order'), $ctx));
     }
 
     /**
@@ -76,13 +93,12 @@ class SellerOrderController extends Controller
         abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
 
         $request->validate([
-            'payment_method'  => ['required', 'in:cash,bank_transfer,emi,other'],
+            'payment_method'  => ['required', 'in:cash,bank_transfer,emi,esewa,khalti,other'],
             'amount_paid'     => ['required', 'integer', 'min:1'],
             'transaction_ref' => ['nullable', 'string', 'max:255'],
             'remarks'         => ['nullable', 'string', 'max:500'],
         ]);
 
-        // Create the purchase record from the seller side
         Purchase::create([
             'order_id'        => $order->id,
             'buyer_id'        => $order->buyer_id,
@@ -93,14 +109,13 @@ class SellerOrderController extends Controller
             'remarks'         => $request->remarks,
         ]);
 
-        // Mark order as completed
         $order->update(['status' => 'completed']);
-
-        // Reduce stock — auto-marks car as sold if stock hits 0
         $order->car->decrementStock();
 
+        $prefix = $this->context()['prefix'];
+
         return redirect()
-            ->route('seller.orders.show', $order)
+            ->route($prefix . '.orders.show', $order)
             ->with('success', 'Order marked as completed. Payment recorded successfully.');
     }
 
@@ -118,8 +133,10 @@ class SellerOrderController extends Controller
             $order->car->update(['status' => 'available']);
         }
 
+        $prefix = $this->context()['prefix'];
+
         return redirect()
-            ->route('seller.orders.index')
+            ->route($prefix . '.orders.index')
             ->with('success', 'Order cancelled. The listing is available again.');
     }
 }

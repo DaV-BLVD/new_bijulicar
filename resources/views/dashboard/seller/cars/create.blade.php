@@ -1,16 +1,16 @@
-@extends('dashboard.seller.layout')
+@extends($layout)
 @section('title', 'New Listing')
 @section('page-title', 'New Listing')
 
 @section('content')
 
-    <a href="{{ route('seller.cars.index') }}"
+    <a href="{{ route($prefix . '.cars.index') }}"
         class="inline-flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors mb-6">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         Back to Listings
     </a>
 
-    <form method="POST" action="{{ route('seller.cars.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route($prefix . '.cars.store') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -165,11 +165,11 @@
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                         @error('stock_quantity')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
                     </div>
-                    <!-- <div class="mt-3 p-3 bg-slate-50 rounded-xl">
+                    <div class="mt-3 p-3 bg-slate-50 rounded-xl">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Examples</p>
                         <p class="text-xs text-slate-500 font-medium">Private seller with 1 car → <span class="font-black text-slate-700">1</span></p>
                         <p class="text-xs text-slate-500 font-medium mt-1">Dealership with 5 units → <span class="font-black text-slate-700">5</span></p>
-                    </div> -->
+                    </div>
                 </div>
 
                 {{-- Location --}}

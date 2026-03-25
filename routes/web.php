@@ -7,14 +7,10 @@ use App\Http\Controllers\Buyer\BuyerReviewController;
 use Illuminate\Support\Facades\Route;
 
 // ── Public frontend routes ─────────────────────────────────────────────
-Route::get('/', fn() => view('frontend.pages.home'))->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/marketplace', [App\Http\Controllers\MarketplaceController::class, 'index'])->name('marketplace');
-
-// Route::get('/news', fn() => view('frontend.pages.news'))->name('news');
-Route::get('/news', [App\Http\Controllers\NewsController::class, 'index'])->name('news');
-// Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/news', fn() => view('frontend.pages.news'))->name('news');
 // Route::get('/map_location', fn() => view('frontend.pages.map_location'))->name('map_location');
-
 Route::get('/map_location', [App\Http\Controllers\MapController::class, 'index'])->name('map_location');
 Route::get('/loan_calculator', fn() => view('frontend.pages.loan_calculator'))->name('loan_calculator');
 Route::get('/contact', fn() => view('frontend.pages.contact'))->name('contact');
@@ -56,9 +52,10 @@ Route::middleware(['auth', 'role:buyer'])
         Route::get('/orders/{order}', [BuyerOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/cancel', [BuyerOrderController::class, 'cancel'])->name('orders.cancel');
 
-        
         // Purchases
         Route::get('/purchases', [BuyerPurchaseController::class, 'index'])->name('purchases.index');
+        Route::get('/purchases/{order}/pay', [BuyerPurchaseController::class, 'create'])->name('purchases.create');
+        Route::post('/purchases/{order}/pay', [BuyerPurchaseController::class, 'store'])->name('purchases.store');
 
         // Reviews
         Route::get('/reviews', [BuyerReviewController::class, 'index'])->name('reviews.index');
@@ -121,6 +118,14 @@ Route::middleware(['auth', 'role:business'])
 
         // Analytics
         Route::get('/analytics', [App\Http\Controllers\Business\BusinessAnalyticsController::class, 'index'])->name('analytics');
+
+        // Advertisements (CRUD)
+        Route::get('/advertisements',                    [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'index'])->name('advertisements.index');
+        Route::get('/advertisements/create',             [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'create'])->name('advertisements.create');
+        Route::post('/advertisements',                   [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'store'])->name('advertisements.store');
+        Route::get('/advertisements/{advertisement}/edit',   [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'edit'])->name('advertisements.edit');
+        Route::patch('/advertisements/{advertisement}',      [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'update'])->name('advertisements.update');
+        Route::delete('/advertisements/{advertisement}',     [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'destroy'])->name('advertisements.destroy');
     });
 
 // ── Profile ────────────────────────────────────────────────────────────

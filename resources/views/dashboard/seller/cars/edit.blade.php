@@ -1,16 +1,16 @@
-@extends('dashboard.seller.layout')
+@extends($layout)
 @section('title', 'Edit Listing')
 @section('page-title', 'Edit Listing')
 
 @section('content')
 
-    <a href="{{ route('seller.cars.index') }}"
+    <a href="{{ route($prefix . '.cars.index') }}"
         class="inline-flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors mb-6">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         Back to Listings
     </a>
 
-    <form method="POST" action="{{ route('seller.cars.update', $car) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route($prefix . '.cars.update', $car) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 

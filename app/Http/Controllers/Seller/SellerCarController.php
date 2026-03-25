@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Storage;
 
 class SellerCarController extends Controller
 {
+    /** Detect which role is using this controller and return the correct route prefix and layout. */
+    private function context(): array
+    {
+        if (Auth::user()->hasRole('business')) {
+            return ['prefix' => 'business', 'layout' => 'dashboard.business.layout'];
+        }
+        return ['prefix' => 'seller', 'layout' => 'dashboard.seller.layout'];
+    }
+
     /**
      * Show all listings by this seller.
      */
@@ -23,7 +32,7 @@ class SellerCarController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('dashboard.seller.cars.index', compact('cars'));
+        return view('dashboard.seller.cars.index', array_merge(compact('cars'), $this->context()));
     }
 
     /**
@@ -31,7 +40,7 @@ class SellerCarController extends Controller
      */
     public function create()
     {
-        return view('dashboard.seller.cars.create');
+        return view('dashboard.seller.cars.create', $this->context());
     }
 
     /**
@@ -39,6 +48,8 @@ class SellerCarController extends Controller
      */
     public function store(Request $request)
     {
+        $ctx = $this->context();
+
         $request->validate([
             'brand'            => ['required', 'string', 'max:100'],
             'model'            => ['required', 'string', 'max:100'],
@@ -99,7 +110,7 @@ class SellerCarController extends Controller
         }
 
         return redirect()
-            ->route('seller.cars.index')
+            ->route($ctx['prefix'] . '.cars.index')
             ->with('success', "{$car->displayName()} listed successfully with {$car->stock_quantity} unit(s).");
     }
 
@@ -112,7 +123,7 @@ class SellerCarController extends Controller
 
         $car->load('images');
 
-        return view('dashboard.seller.cars.edit', compact('car'));
+        return view('dashboard.seller.cars.edit', array_merge(compact('car'), $this->context()));
     }
 
     /**
@@ -121,6 +132,8 @@ class SellerCarController extends Controller
     public function update(Request $request, Car $car)
     {
         abort_if($car->seller_id !== Auth::id(), 403);
+
+        $ctx = $this->context();
 
         $request->validate([
             'brand'            => ['required', 'string', 'max:100'],
@@ -203,7 +216,7 @@ class SellerCarController extends Controller
         }
 
         return redirect()
-            ->route('seller.cars.index')
+            ->route($ctx['prefix'] . '.cars.index')
             ->with('success', "Listing updated. Stock: {$car->fresh()->stock_quantity} unit(s).");
     }
 
@@ -213,6 +226,8 @@ class SellerCarController extends Controller
     public function destroy(Car $car)
     {
         abort_if($car->seller_id !== Auth::id(), 403);
+
+        $ctx = $this->context();
 
         $hasActiveOrders = $car->orders()
             ->whereIn('status', ['pending', 'confirmed'])
@@ -226,7 +241,7 @@ class SellerCarController extends Controller
         $car->delete();
 
         return redirect()
-            ->route('seller.cars.index')
+            ->route($ctx['prefix'] . '.cars.index')
             ->with('success', "{$name} listing deleted.");
     }
 }

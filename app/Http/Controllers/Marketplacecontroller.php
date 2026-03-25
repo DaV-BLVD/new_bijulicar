@@ -74,6 +74,14 @@ class MarketplaceController extends Controller
         $locations = Car::where('status', 'available')->distinct()->pluck('location')->sort()->values();
         $totalActive = Car::where('status', 'available')->count();
 
-        return view('frontend.pages.marketplace', compact('cars', 'locations', 'totalActive'));
+        // Active marketplace ads
+        $marketplaceAds = \App\Models\Advertisement::with('car')
+            ->where('placement', 'marketplace')
+            ->where('is_active', true)
+            ->where(fn($q) => $q->whereNull('starts_at')->orWhereDate('starts_at', '<=', today()))
+            ->where(fn($q) => $q->whereNull('ends_at')->orWhereDate('ends_at', '>=', today()))
+            ->get();
+
+        return view('frontend.pages.marketplace', compact('cars', 'locations', 'totalActive', 'marketplaceAds'));
     }
 }
