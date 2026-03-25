@@ -55,6 +55,10 @@ Route::prefix('admin')
 
                 // news banner
                 Route::resource('news_banner', \App\Http\Controllers\Admin\NewsBannerController::class);
+
+                // home banner
+                Route::resource('home_banner', \App\Http\Controllers\Admin\HomeBannerController::class);
+
             });
 
             // 4. Staff Management (Superadmin ONLY)

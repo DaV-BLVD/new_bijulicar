@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\HomeBanner;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,8 @@ class HomeController extends Controller
             ->where(fn($q) => $q->whereNull('ends_at')->orWhereDate('ends_at', '>=', today()))
             ->get();
 
-        return view('frontend.pages.home', compact('homeAds'));
+        $banners = HomeBanner::where('is_active', true)->latest()->first();
+
+        return view('frontend.pages.home', compact('homeAds', 'banners'));
     }
 }

@@ -3,12 +3,19 @@
 @section('content')
     {{-- Removed mt-4 and rounded corners to let it bleed to the top and edges --}}
 
+
+
     <section class="relative h-screen w-full overflow-hidden bg-slate-900">
         <div class="swiper mySwiper h-full w-full">
             <div class="swiper-wrapper">
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070"
-                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 1">
+                    {{-- <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070"
+                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 1"> --}}
+
+                    @if ($banners)
+                        <img src="{{ asset('storage/' . $banners->image1) }}"
+                            class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 1">
+                    @endif
 
                     {{-- Added pt-20 to ensure content doesn't get hidden behind the floating navbar --}}
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
@@ -19,21 +26,26 @@
                             Discover the largest marketplace for all types of vehicles on BijuliCar.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4">
-                            <button
-                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
+                            <a href="{{ route('marketplace') }}"
+                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20 inline-block text-center">
                                 Browse Marketplace
-                            </button>
-                            <button
-                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
+                            </a>
+                            <a href="{{ route('loan_calculator') }}"
+                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all inline-block text-center">
                                 Calculate Loan
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=2071"
-                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 2">
+                    {{-- <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=2071"
+                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 2"> --}}
+
+                    @if ($banners)
+                        <img src="{{ asset('storage/' . $banners->image2) }}"
+                            class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 2">
+                    @endif
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
                         <h1 class="text-white text-5xl md:text-8xl font-black tracking-tighter mb-4 uppercase italic">
                             Smart Comparisons
@@ -42,37 +54,43 @@
                             Side-by-side technical specs for every major electric vehicle on the market.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4">
-                            <button
-                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
+                            <a href="{{ route('compare_cars') }}"
+                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20 inline-block text-center">
                                 Start Comparing
-                            </button>
-                            <button
-                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
+                            </a>
+                            <a href="{{ route('news') }}"
+                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all inline-block text-center">
                                 Get News
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2071"
-                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 2">
+                    {{-- <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2071"
+                        class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 3"> --}}
+                    @if ($banners)
+                        <img src="{{ asset('storage/' . $banners->image3) }}"
+                            class="w-full h-full object-cover brightness-[0.4]" alt="EV Car 3">
+                    @endif
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
                         <h1 class="text-white text-5xl md:text-8xl font-black tracking-tighter mb-4 uppercase italic">
                             Find Your Type
                         </h1>
                         <p class="text-slate-200 text-lg md:text-2xl max-w-2xl mb-10 font-medium">
-                            All types of Cars available - Electric, Hybrid, and Traditional Combustion. Find the one that fits your lifestyle and budget.
+                            All types of Cars available - Electric, Hybrid, and Traditional Combustion. Find the one that
+                            fits your lifestyle and budget.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4">
-                            <button
-                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
+                            <a href="{{ route('login') }}"
+                                class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-bold hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20 inline-block text-center">
                                 Log In
-                            </button>
-                            <button
-                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
+                            </a>
+
+                            <a href="{{ route('register') }}"
+                                class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all inline-block text-center">
                                 Sign Up
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -187,7 +205,8 @@
 
                     <div class="mt-10 flex items-center justify-between border-t border-slate-50 pt-8">
                         <div>
-                            <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold">Status</span>
+                            <span
+                                class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold">Status</span>
                             <span class="text-sm font-black text-slate-900 italic">02 Available</span>
                         </div>
                         <div
@@ -270,70 +289,79 @@
     </section>
 
     {{-- ── Sponsored banners (home placement) ────────────────────────── --}}
-    @if(isset($homeAds) && $homeAds->isNotEmpty())
-    <section class="py-10 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-6 space-y-5">
-            @foreach($homeAds as $ad)
-            @php $target = $ad->link_url ?: ($ad->car_id ? route('marketplace') : null); @endphp
-            <div class="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm group bg-slate-900">
-                <div class="flex flex-col md:flex-row min-h-[200px]">
+    @if (isset($homeAds) && $homeAds->isNotEmpty())
+        <section class="py-10 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-6 space-y-5">
+                @foreach ($homeAds as $ad)
+                    @php $target = $ad->link_url ?: ($ad->car_id ? route('marketplace') : null); @endphp
+                    <div class="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm group bg-slate-900">
+                        <div class="flex flex-col md:flex-row min-h-[200px]">
 
-                    {{-- Left: text content --}}
-                    <div class="flex-1 flex flex-col justify-center px-8 py-8 md:py-10 z-10">
-                        <p class="text-[9px] font-black text-purple-400 uppercase tracking-widest mb-3">Sponsored</p>
-                        <h3 class="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight leading-tight mb-3">
-                            {{ $ad->title }}
-                        </h3>
-                        @if($ad->description)
-                            <p class="text-slate-400 text-sm font-medium mb-4 max-w-md leading-relaxed">{{ $ad->description }}</p>
-                        @endif
+                            {{-- Left: text content --}}
+                            <div class="flex-1 flex flex-col justify-center px-8 py-8 md:py-10 z-10">
+                                <p class="text-[9px] font-black text-purple-400 uppercase tracking-widest mb-3">Sponsored
+                                </p>
+                                <h3
+                                    class="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight leading-tight mb-3">
+                                    {{ $ad->title }}
+                                </h3>
+                                @if ($ad->description)
+                                    <p class="text-slate-400 text-sm font-medium mb-4 max-w-md leading-relaxed">
+                                        {{ $ad->description }}</p>
+                                @endif
 
-                        {{-- Car details if linked --}}
-                        @if($ad->car)
-                            <div class="flex flex-wrap gap-2 mb-5">
-                                <span class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
-                                    {{ $ad->car->displayName() }}
-                                </span>
-                                <span class="text-[10px] font-black px-3 py-1.5 bg-[#4ade80]/20 text-[#4ade80] rounded-lg uppercase tracking-wider border border-[#4ade80]/20">
-                                    {{ $ad->car->formattedPrice() }}
-                                </span>
-                                <span class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
-                                    {{ strtoupper($ad->car->drivetrain) }}
-                                </span>
-                                @if($ad->car->range_km)
-                                <span class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
-                                    {{ $ad->car->range_km }} km range
-                                </span>
+                                {{-- Car details if linked --}}
+                                @if ($ad->car)
+                                    <div class="flex flex-wrap gap-2 mb-5">
+                                        <span
+                                            class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
+                                            {{ $ad->car->displayName() }}
+                                        </span>
+                                        <span
+                                            class="text-[10px] font-black px-3 py-1.5 bg-[#4ade80]/20 text-[#4ade80] rounded-lg uppercase tracking-wider border border-[#4ade80]/20">
+                                            {{ $ad->car->formattedPrice() }}
+                                        </span>
+                                        <span
+                                            class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
+                                            {{ strtoupper($ad->car->drivetrain) }}
+                                        </span>
+                                        @if ($ad->car->range_km)
+                                            <span
+                                                class="text-[10px] font-black px-3 py-1.5 bg-white/10 text-white rounded-lg uppercase tracking-wider">
+                                                {{ $ad->car->range_km }} km range
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
+
+                                @if ($target)
+                                    <a href="{{ $target }}"
+                                        class="self-start px-6 py-2.5 bg-white text-slate-900 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#4ade80] transition-all">
+                                        {{ $ad->car ? 'View Listing →' : 'Learn More →' }}
+                                    </a>
                                 @endif
                             </div>
-                        @endif
 
-                        @if($target)
-                            <a href="{{ $target }}"
-                                class="self-start px-6 py-2.5 bg-white text-slate-900 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#4ade80] transition-all">
-                                {{ $ad->car ? 'View Listing →' : 'Learn More →' }}
-                            </a>
-                        @endif
-                    </div>
+                            {{-- Right: banner image --}}
+                            @if ($ad->image)
+                                <div class="md:w-2/5 shrink-0 relative min-h-[180px] md:min-h-0">
+                                    <img src="{{ Storage::url($ad->image) }}" alt="{{ $ad->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 absolute inset-0">
+                                    <div
+                                        class="hidden md:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="hidden md:block md:w-1/4 shrink-0 opacity-5"
+                                    style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;">
+                                </div>
+                            @endif
 
-                    {{-- Right: banner image --}}
-                    @if($ad->image)
-                    <div class="md:w-2/5 shrink-0 relative min-h-[180px] md:min-h-0">
-                        <img src="{{ Storage::url($ad->image) }}" alt="{{ $ad->title }}"
-                            class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 absolute inset-0">
-                        <div class="hidden md:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10"></div>
+                        </div>
                     </div>
-                    @else
-                    <div class="hidden md:block md:w-1/4 shrink-0 opacity-5"
-                         style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    @endif
-
-                </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
-    </section>
+        </section>
     @endif
 
     <section class="py-24 bg-slate-50">
