@@ -165,11 +165,11 @@
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                         @error('stock_quantity')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
                     </div>
-                    <div class="mt-3 p-3 bg-slate-50 rounded-xl">
+                    <!-- <div class="mt-3 p-3 bg-slate-50 rounded-xl">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Examples</p>
                         <p class="text-xs text-slate-500 font-medium">Private seller with 1 car → <span class="font-black text-slate-700">1</span></p>
                         <p class="text-xs text-slate-500 font-medium mt-1">Dealership with 5 units → <span class="font-black text-slate-700">5</span></p>
-                    </div>
+                    </div> -->
                 </div>
 
                 {{-- Location --}}

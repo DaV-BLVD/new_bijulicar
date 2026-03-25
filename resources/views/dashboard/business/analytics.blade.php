@@ -80,10 +80,10 @@
                     <div class="text-2xl font-black text-purple-700">{{ $activeListings }}</div>
                     <div class="text-[10px] font-black text-purple-400 uppercase tracking-widest mt-1">Active</div>
                 </div>
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <!-- <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                     <div class="text-2xl font-black text-slate-700">{{ $soldListings }}</div>
                     <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Sold</div>
-                </div>
+                </div> -->
                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                     <div class="text-2xl font-black text-slate-500">{{ $inactiveListings }}</div>
                     <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Inactive</div>

@@ -98,13 +98,13 @@
                 Advertisements
             </a>
 
-            {{-- Bulk Operations — coming soon --}}
+            <!-- {{-- Bulk Operations — coming soon --}}
             <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 cursor-not-allowed select-none"
                  title="Coming soon">
                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
                 Bulk Operations
                 <span class="ml-auto text-[9px] bg-slate-800 text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded-full font-black uppercase tracking-wider">Soon</span>
-            </div>
+            </div> -->
 
             <p class="text-[9px] font-black text-slate-600 uppercase tracking-widest px-3 py-2 mt-2">Explore</p>
 

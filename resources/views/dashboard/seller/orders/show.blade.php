@@ -20,7 +20,6 @@
             {{-- Car card --}}
             <div class="bg-white border border-slate-200 rounded-2xl p-6">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Vehicle</p>
-
                 <div class="flex items-start gap-4">
                     <div class="w-16 h-16 bg-slate-100 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center">
                         @if($order->car->primaryImage ?? false)
@@ -52,6 +51,9 @@
                                 {{ $order->car->battery_kwh }} kWh
                             </span>
                             @endif
+                            <span class="text-[10px] font-black px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg uppercase tracking-wider">
+                                Stock: {{ $order->car->stock_quantity }} left
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -77,13 +79,13 @@
                 @endif
             </div>
 
-            {{-- Payment record --}}
+            {{-- Payment record (shown after completion) --}}
             @if($order->purchase)
             <div class="bg-[#4ade80]/10 border border-[#4ade80]/20 rounded-2xl p-6">
-                <p class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest mb-4">Payment Received</p>
+                <p class="text-[10px] font-black text-[#16a34a] uppercase tracking-widest mb-4">Payment Record</p>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount Received</p>
                         <p class="text-lg font-black text-slate-900 mt-1">{{ $order->purchase->formattedAmount() }}</p>
                     </div>
                     <div>
@@ -96,8 +98,14 @@
                         <p class="text-sm font-mono text-slate-700 mt-1">{{ $order->purchase->transaction_ref }}</p>
                     </div>
                     @endif
+                    @if($order->purchase->remarks)
+                    <div class="col-span-2">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Remarks</p>
+                        <p class="text-sm text-slate-600 font-medium mt-1">{{ $order->purchase->remarks }}</p>
+                    </div>
+                    @endif
                     <div>
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Paid On</p>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Completed On</p>
                         <p class="text-sm font-black text-slate-900 mt-1">{{ $order->purchase->purchased_at->format('d M Y, h:i A') }}</p>
                     </div>
                 </div>
@@ -114,23 +122,23 @@
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Order Summary</p>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Order ID</p>
+                        <p class="text-xs font-bold text-slate-400">Order ID</p>
                         <p class="text-xs font-mono text-slate-700">#{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Placed On</p>
+                        <p class="text-xs font-bold text-slate-400">Placed On</p>
                         <p class="text-xs font-bold text-slate-700">{{ $order->ordered_at->format('d M Y') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Buyer</p>
+                        <p class="text-xs font-bold text-slate-400">Buyer</p>
                         <p class="text-xs font-bold text-slate-700">{{ $order->buyer->name }}</p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Total Price</p>
+                        <p class="text-xs font-bold text-slate-400">Listed Price</p>
                         <p class="text-base font-black text-slate-900">{{ $order->car->formattedPrice() }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-slate-500">Status</p>
+                        <p class="text-xs font-bold text-slate-400">Status</p>
                         <span @class([
                             'text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider',
                             'bg-yellow-100 text-yellow-700'  => $order->status === 'pending',
@@ -146,7 +154,7 @@
             <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Actions</p>
 
-                {{-- Confirm button — only for pending orders --}}
+                {{-- Confirm button — pending only --}}
                 @if($order->status === 'pending')
                 <form method="POST" action="{{ route($prefix . '.orders.confirm', $order) }}">
                     @csrf
@@ -157,18 +165,22 @@
                     </button>
                 </form>
                 <p class="text-center text-[10px] font-medium text-slate-400">
-                    Confirming allows the buyer to proceed with payment.
+                    Confirming lets the buyer know you accepted their order.
                 </p>
                 @endif
 
-                {{-- Waiting for payment --}}
+                {{-- Mark as completed — confirmed only --}}
                 @if($order->status === 'confirmed' && !$order->purchase)
-                <div class="w-full flex items-center justify-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest">
-                    ⏳ Waiting for Payment
-                </div>
+                <a href="{{ route($prefix . '.orders.complete.form', $order) }}"
+                    class="w-full flex items-center justify-center gap-2 bg-[#16a34a] text-white py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#15803d] transition-all shadow-lg block text-center">
+                    💰 Mark as Completed
+                </a>
+                <p class="text-center text-[10px] font-medium text-slate-400">
+                    Use this once you have received payment from the buyer.
+                </p>
                 @endif
 
-                {{-- Completed --}}
+                {{-- Completed state --}}
                 @if($order->status === 'completed')
                 <div class="w-full flex items-center justify-center gap-2 bg-[#4ade80]/10 text-[#16a34a] border border-[#4ade80]/20 py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest">
                     ✓ Sale Completed
@@ -197,13 +209,13 @@
 
                 {{-- Edit listing link --}}
                 <a href="{{ route($prefix . '.cars.edit', $order->car) }}"
-                    class="w-full flex items-center justify-center gap-2 bg-slate-50 text-slate-600 border border-slate-200 py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-100 transition-all">
+                    class="w-full flex items-center justify-center gap-2 bg-slate-50 text-slate-600 border border-slate-200 py-3 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-100 transition-all block text-center">
                     Edit Listing
                 </a>
 
             </div>
 
-            {{-- Info box for pending --}}
+            {{-- Next steps guide for pending --}}
             @if($order->status === 'pending')
             <div class="bg-slate-900 rounded-2xl p-5">
                 <p class="text-[10px] font-black text-[#4ade80] uppercase tracking-widest mb-3">⚡ Next Steps</p>
@@ -214,11 +226,36 @@
                     </li>
                     <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
                         <span class="text-[#4ade80] mt-0.5">→</span>
-                        Click Confirm Order to unlock payment for the buyer.
+                        Confirm the order to accept it.
                     </li>
                     <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
                         <span class="text-[#4ade80] mt-0.5">→</span>
-                        Or cancel if you cannot fulfil this order.
+                        Arrange payment with the buyer offline.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Once paid, mark the order as completed.
+                    </li>
+                </ul>
+            </div>
+            @endif
+
+            {{-- Next steps for confirmed --}}
+            @if($order->status === 'confirmed' && !$order->purchase)
+            <div class="bg-slate-900 rounded-2xl p-5">
+                <p class="text-[10px] font-black text-[#4ade80] uppercase tracking-widest mb-3">⚡ Waiting for Payment</p>
+                <ul class="space-y-2">
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Coordinate with {{ $order->buyer->name }} for payment.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Accept cash, bank transfer, eSewa or Khalti.
+                    </li>
+                    <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
+                        <span class="text-[#4ade80] mt-0.5">→</span>
+                        Click "Mark as Completed" once you receive it.
                     </li>
                 </ul>
             </div>
