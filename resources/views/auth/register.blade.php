@@ -8,8 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; overflow: hidden; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 
@@ -33,13 +39,15 @@
                 </h2>
                 <ul class="space-y-4 text-slate-300 text-sm font-bold uppercase tracking-widest">
                     <li class="flex items-center gap-3"><span class="text-[#4ade80]">✔</span> Expert EV Valuation</li>
-                    <li class="flex items-center gap-3"><span class="text-[#4ade80]">✔</span> Verified Private Sellers</li>
+                    <li class="flex items-center gap-3"><span class="text-[#4ade80]">✔</span> Verified Private Sellers
+                    </li>
                     <li class="flex items-center gap-3"><span class="text-[#4ade80]">✔</span> Secure Digital Title</li>
                 </ul>
             </div>
         </section>
 
-        <section class="w-full lg:w-[50%] h-full flex flex-col justify-center px-8 md:px-20 bg-white relative z-10 overflow-y-auto no-scrollbar">
+        <section
+            class="w-full lg:w-[50%] h-full flex flex-col justify-center px-8 md:px-20 bg-white relative z-10 overflow-y-auto no-scrollbar">
 
             <div class="mb-8">
                 <div class="flex justify-between items-center mb-3 px-1">
@@ -54,7 +62,8 @@
                 <h1 class="text-3xl font-black text-slate-900 uppercase italic tracking-tighter">
                     Create <span class="text-[#16a34a]">Account</span>
                 </h1>
-                <p class="text-slate-500 text-sm font-medium mt-1">Join the community to start listing your vehicles.</p>
+                <p class="text-slate-500 text-sm font-medium mt-1">Join the community to start listing your vehicles.
+                </p>
             </div>
 
             <form method="POST" action="{{ route('register') }}" class="space-y-4">
@@ -62,83 +71,113 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
-                        <input type="text" name="name" value="{{ old('name') }}" required autofocus placeholder="John Doe"
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full
+                            Name</label>
+                        <input type="text" name="name" value="{{ old('name') }}" required autofocus
+                            placeholder="John Doe"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all font-medium @error('name') border-red-500 @enderror">
-                        @error('name') <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p> @enderror
+                        @error('name')
+                            <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" required placeholder="john@example.com"
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}" required
+                            placeholder="john@example.com"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all font-medium @error('email') border-red-500 @enderror">
-                        @error('email') <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p> @enderror
+                        @error('email')
+                            <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password</label>
-                        <input type="password" name="password" required autocomplete="new-password" placeholder="••••••••"
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password</label>
+                        <input type="password" name="password" required autocomplete="new-password"
+                            placeholder="••••••••"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all font-medium @error('password') border-red-500 @enderror">
-                        @error('password') <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p> @enderror
+                        @error('password')
+                            <p class="text-[9px] text-red-500 font-bold uppercase mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Confirm</label>
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Confirm</label>
                         <input type="password" name="password_confirmation" required placeholder="••••••••"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all font-medium">
                     </div>
                 </div>
 
                 <div class="space-y-3">
-    <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Select Account Type</label>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        <label class="group cursor-pointer">
-            <input type="radio" name="role" value="buyer" class="sr-only peer" {{ old('role') === 'buyer' ? 'checked' : '' }}>
-            <div class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
-                        peer-checked:border-[#16a34a] peer-checked:bg-green-50/50 
-                        group-hover:border-slate-200 group-hover:shadow-md">
-                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">🛒</div>
-                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Buyer</div>
-                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">Browse & Purchase</div>
-                
-                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-            </div>
-        </label>
+                    <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Select Account
+                        Type</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <label class="group cursor-pointer">
-            <input type="radio" name="role" value="seller" class="sr-only peer" {{ old('role') === 'seller' ? 'checked' : '' }}>
-            <div class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
+                        <label class="group cursor-pointer">
+                            <input type="radio" name="role" value="buyer" class="sr-only peer"
+                                {{ old('role') === 'buyer' ? 'checked' : '' }}>
+                            <div
+                                class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
                         peer-checked:border-[#16a34a] peer-checked:bg-green-50/50 
                         group-hover:border-slate-200 group-hover:shadow-md">
-                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">⚡</div>
-                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Seller</div>
-                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">List Your EV</div>
-                
-                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-            </div>
-        </label>
+                                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">🛒</div>
+                                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Buyer
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">Browse & Purchase
+                                </div>
 
-        <label class="group cursor-pointer">
-            <input type="radio" name="role" value="business" class="sr-only peer" {{ old('role') === 'business' ? 'checked' : '' }}>
-            <div class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
+                                <div
+                                    class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity">
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="group cursor-pointer">
+                            <input type="radio" name="role" value="seller" class="sr-only peer"
+                                {{ old('role') === 'seller' ? 'checked' : '' }}>
+                            <div
+                                class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
                         peer-checked:border-[#16a34a] peer-checked:bg-green-50/50 
                         group-hover:border-slate-200 group-hover:shadow-md">
-                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">🏢</div>
-                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Business</div>
-                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">Bulk & Ads</div>
-                
-                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-            </div>
-        </label>
-    </div>
-    
-    @error('role') 
-        <p class="text-[10px] text-red-500 font-bold uppercase italic tracking-wider mt-2 ml-1">
-            ⚠ {{ $message }}
-        </p> 
-    @enderror
-</div>
+                                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">⚡</div>
+                                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Seller
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">List Your EV</div>
+
+                                <div
+                                    class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity">
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="group cursor-pointer">
+                            <input type="radio" name="role" value="business" class="sr-only peer"
+                                {{ old('role') === 'business' ? 'checked' : '' }}>
+                            <div
+                                class="relative border-2 border-slate-100 rounded-2xl p-5 text-center transition-all 
+                        peer-checked:border-[#16a34a] peer-checked:bg-green-50/50 
+                        group-hover:border-slate-200 group-hover:shadow-md">
+                                <div class="mb-2 text-xl group-hover:scale-110 transition-transform">🏢</div>
+                                <div class="font-black text-xs text-slate-900 uppercase italic tracking-tight">Business
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-bold mt-1 leading-tight">Bulk & Ads</div>
+
+                                <div
+                                    class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#16a34a] opacity-0 peer-checked:opacity-100 transition-opacity">
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    @error('role')
+                        <p class="text-[10px] text-red-500 font-bold uppercase italic tracking-wider mt-2 ml-1">
+                            ⚠ {{ $message }}
+                        </p>
+                    @enderror
+                </div>
 
                 <button type="submit"
                     class="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase italic tracking-widest text-xs hover:bg-[#16a34a] transition-all flex items-center justify-center gap-3 shadow-xl group">
@@ -152,10 +191,12 @@
             </form>
 
             <p class="mt-8 text-center text-[11px] font-bold text-slate-400 uppercase tracking-widest">
-                Already have an account? <a href="{{ route('login') }}" class="text-[#16a34a] hover:underline ml-1">Authorize Entry</a>
+                Already have an account? <a href="{{ route('login') }}"
+                    class="text-[#16a34a] hover:underline ml-1">Authorize Entry</a>
             </p>
         </section>
     </main>
 
 </body>
+
 </html>

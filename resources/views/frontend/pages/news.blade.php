@@ -48,7 +48,7 @@
             <div class="mt-16 flex flex-wrap gap-3 lg:gap-4 border-t border-white/5 pt-10">
                 <button
                     class="px-8 py-3 bg-[#4ade80] text-black rounded-full text-[10px] font-black uppercase tracking-widest italic shadow-lg shadow-[#4ade80]/20 hover:scale-105 transition-transform">
-                    All Stories
+                    Discover
                 </button>
                 <button
                     class="px-8 py-3 bg-white/5 border border-white/10 hover:border-[#4ade80]/50 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all">
