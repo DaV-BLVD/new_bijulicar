@@ -44,8 +44,14 @@ Route::prefix('admin')
                 Route::post('/contact-messages/{id}/undo', [App\Http\Controllers\Admin\ContactMessageController::class, 'undoRead'])->name('contact_messages.undo');
                 Route::delete('/contact-messages/{id}', [App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])->name('contact_messages.destroy');
 
-                // news 
+                // news
                 Route::resource('news', \App\Http\Controllers\Admin\NewsArticleController::class);
+
+                // contact banner
+                Route::resource('contact_banner', \App\Http\Controllers\Admin\ContactBannerController::class);
+
+                // contact Details
+                Route::resource('contact_details', \App\Http\Controllers\Admin\ContactDetailsController::class);
             });
 
             // 4. Staff Management (Superadmin ONLY)

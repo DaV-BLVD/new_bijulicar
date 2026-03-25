@@ -14,7 +14,9 @@ Route::get('/news', [App\Http\Controllers\NewsController::class, 'index'])->name
 // Route::get('/map_location', fn() => view('frontend.pages.map_location'))->name('map_location');
 Route::get('/map_location', [App\Http\Controllers\MapController::class, 'index'])->name('map_location');
 Route::get('/loan_calculator', fn() => view('frontend.pages.loan_calculator'))->name('loan_calculator');
-Route::get('/contact', fn() => view('frontend.pages.contact'))->name('contact');
+// Route::get('/contact', fn() => view('frontend.pages.contact'))->name('contact');
+Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('contact');
+
 Route::post('/contact', [App\Http\Controllers\ContactMessageController::class, 'store'])->name('contact.store');
 Route::get('/compare_cars', fn() => view('frontend.pages.compare_cars'))->name('compare_cars');
 

@@ -17,7 +17,7 @@ class ContactMessageController extends Controller
         'message' => 'required|string',
     ]);
 
-    \App\Models\ContactMessage::create($validated);
+    ContactMessage::create($validated);
 
     return response()->json([
         'success' => true,

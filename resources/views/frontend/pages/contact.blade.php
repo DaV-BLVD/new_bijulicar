@@ -5,8 +5,12 @@
     <section class="relative bg-[#0a0f1e] pt-[120px] pb-16 lg:pt-40 lg:pb-28 overflow-hidden">
 
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?auto=format&fit=crop&q=80&w=2071"
-                class="w-full h-full object-cover opacity-70 scale-105" alt="Contact Background">
+            {{-- <img src="{{ asset() }}"
+                class="w-full h-full object-cover opacity-70 scale-105" alt="Contact Background"> --}}
+            @if ($banner)
+                <img src="{{ asset('storage/' . $banner->image) }}" class="w-full h-full object-cover opacity-70 scale-105"
+                    alt="{{ $banner->title }}">
+            @endif
 
             <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f1e] via-[#0a0f1e]/40 to-[#0a0f1e]/80"></div>
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0a0f1e_100%)]"></div>
@@ -45,7 +49,9 @@
                             </div>
                             <div>
                                 <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hotline</p>
-                                <p class="text-xs font-black text-white">+977-01-XXXXXXX</p>
+                                @if ($contact_details->phone_no)
+                                    <p class="text-xs font-black text-white">{{ $contact_details->phone_no }}</p>
+                                @endif
                             </div>
                         </div>
 
@@ -59,7 +65,9 @@
                             </div>
                             <div>
                                 <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Operation</p>
-                                <p class="text-xs font-black text-white">09:00 - 18:00</p>
+                                @if ($contact_details->working_hours)
+                                    <p class="text-xs font-black text-white">{{ $contact_details->working_hours }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -88,12 +96,13 @@
                                 </p>
 
                                 <div class="pt-6 border-t border-white/10">
-                                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Global
-                                        HQ</p>
-                                    <p class="text-sm text-white font-medium">
-                                        BijuliCar Plaza, <br>
-                                        Naxal, Kathmandu, Nepal
-                                    </p>
+                                    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">
+                                        HeadQuaters</p>
+                                    @if ($contact_details->address)
+                                        <p class="text-sm text-white font-medium">
+                                            {{ $contact_details->address }}
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -124,7 +133,9 @@
                         </svg>
                     </div>
                     <h3 class="text-slate-900 font-black uppercase italic tracking-wider mb-2">Email Us</h3>
-                    <p class="text-[#16a34a] text-sm font-bold mb-4">support@bijulicar.com</p>
+                    @if ($contact_details->email)
+                        <p class="text-[#16a34a] text-sm font-bold mb-4">{{ $contact_details->email }}</p>
+                    @endif
                     <p class="text-slate-500 text-xs font-semibold leading-relaxed">Encrypted support line. We respond
                         within 24 hours.</p>
                 </div>
@@ -140,8 +151,14 @@
                         </svg>
                     </div>
                     <h3 class="text-slate-900 font-black uppercase italic tracking-wider mb-2">Call Us</h3>
-                    <p class="text-slate-900 text-sm font-bold mb-4">+1 (555) 123-4567</p>
-                    <p class="text-slate-500 text-xs font-semibold leading-relaxed">Mon-Fri 9AM-6PM PST.</p>
+                    @if ($contact_details->phone_no)
+                        <p class="text-slate-900 text-sm font-bold mb-4">{{ $contact_details->phone_no }}</p>
+                    @endif
+
+                    @if ($contact_details->working_hours)
+                        <p class="text-slate-500 text-xs font-semibold leading-relaxed">
+                            {{ $contact_details->working_hours }}</p>
+                    @endif
                 </div>
 
                 <div
@@ -155,7 +172,9 @@
                         </svg>
                     </div>
                     <h3 class="text-slate-900 font-black uppercase italic tracking-wider mb-2">Visit Us</h3>
-                    <p class="text-slate-900 text-sm font-bold mb-4">123 Electric Avenue</p>
+                    @if ($contact_details->address)
+                        <p class="text-slate-900 text-sm font-bold mb-4">{{ $contact_details->address }}</p>
+                    @endif
                     <p class="text-slate-500 text-xs font-semibold leading-relaxed">Our headquarters in the heart of Silicon
                         Valley.</p>
                 </div>
@@ -171,7 +190,9 @@
                         </svg>
                     </div>
                     <h3 class="text-slate-900 font-black uppercase italic tracking-wider mb-2">Business Hours</h3>
-                    <p class="text-slate-900 text-sm font-bold mb-4">Mon-Fri: 9AM-6PM</p>
+                    @if ($contact_details->working_hours)
+                        <p class="text-slate-900 text-sm font-bold mb-4">{{ $contact_details->working_hours }}</p>
+                    @endif
                     <p class="text-slate-500 text-xs font-semibold leading-relaxed">Weekend support available via email.
                     </p>
                 </div>
@@ -358,15 +379,6 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-[2rem] p-8 text-center">
-                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Need a faster reply?</p>
-                        <p class="text-white text-sm mb-4">Check our <span class="text-[#4ade80]">Help Center</span> for
-                            instant guides.</p>
-                        <a href="#"
-                            class="inline-block px-6 py-2 border border-white/20 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all">Visit
-                            FAQ</a>
                     </div>
                 </div>
 
