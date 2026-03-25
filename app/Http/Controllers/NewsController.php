@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NewsArticle;
+use App\Models\NewsBanner;
 
 class NewsController extends Controller
 {
@@ -12,6 +13,8 @@ class NewsController extends Controller
         // Fetch paginated articles, 5 per page
         $articles = NewsArticle::orderBy('published_at', 'asc')->paginate(5);
 
-        return view('frontend.pages.news', compact('articles'));
+        $banner = NewsBanner::where('is_active', true)->latest()->first();
+
+        return view('frontend.pages.news', compact('articles', 'banner'));
     }
 }

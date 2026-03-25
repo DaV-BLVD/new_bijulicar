@@ -4,8 +4,13 @@
     {{-- News Header --}}
     <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-[#0a0f1e] text-white">
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('images/news_header.jpg') }}"
-                class="w-full h-full object-cover opacity-100 scale-105 blur-[3px]" alt="Automotive News Background">
+            {{-- <img src="{{ asset('images/news_header.jpg') }}"
+                class="w-full h-full object-cover opacity-100 scale-105 blur-[3px]" alt="Automotive News Background"> --}}
+            @if ($banner->image)
+                <img src="{{ asset('storage/' . $banner->image) }}"
+                    class="w-full h-full object-cover opacity-100 scale-105 blur-[3px]" alt="Automotive News Background">
+            @endif
+
             <div class="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/80 via-[#0a0f1e]/25 to-[#202638]"></div>
         </div>
 
@@ -192,8 +197,7 @@
                             {{-- This section can be populated with other articles --}}
                             @foreach ($article->related_articles as $related)
                                 <div class="flex gap-4 group cursor-pointer">
-                                    <img src="{{ $related['image'] }}"
-                                        class="w-20 h-20 rounded-2xl object-cover">
+                                    <img src="{{ $related['image'] }}" class="w-20 h-20 rounded-2xl object-cover">
                                     <div>
                                         <h5 class="text-sm font-bold group-hover:text-green-600 transition-colors">
                                             {{ $related['title'] }}</h5>

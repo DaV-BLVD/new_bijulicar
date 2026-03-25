@@ -52,6 +52,9 @@ Route::prefix('admin')
 
                 // contact Details
                 Route::resource('contact_details', \App\Http\Controllers\Admin\ContactDetailsController::class);
+
+                // news banner
+                Route::resource('news_banner', \App\Http\Controllers\Admin\NewsBannerController::class);
             });
 
             // 4. Staff Management (Superadmin ONLY)

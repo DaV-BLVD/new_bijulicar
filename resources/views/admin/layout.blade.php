@@ -107,12 +107,49 @@
                     </a>
                 @endcan
 
-                <a href="{{ route('admin.news.index') }}"
-                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
-                       {{ request()->routeIs('admin.news*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
-                    <span class="font-bold w-5 text-center">N</span>
-                    <span class="hide-on-collapse">News Articles</span>
-                </a>
+                <div x-data="{ open: {{ request()->routeIs('admin.news*') || request()->routeIs('admin.news_banner*') ? 'true' : 'false' }} }">
+
+                    <!-- Parent -->
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all
+        {{ request()->routeIs('admin.news*') || request()->routeIs('admin.news_banner*')
+            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20'
+            : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold w-5 text-center">N</span>
+                            <span class="hide-on-collapse">News</span>
+                        </div>
+
+                        <!-- Arrow -->
+                        <svg :class="open ? 'rotate-90' : ''" class="w-3 h-3 transition-transform hide-on-collapse"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <!-- Children -->
+                    <div x-show="open" x-collapse class="mt-1 ml-6 space-y-1">
+
+                        <a href="{{ route('admin.news.index') }}"
+                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all
+            {{ request()->routeIs('admin.news.index')
+                ? 'bg-indigo-600 text-white'
+                : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+                            <span class="w-5 text-center">•</span>
+                            <span class="hide-on-collapse">News Articles</span>
+                        </a>
+
+                        <a href="{{ route('admin.news_banner.index') }}"
+                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all
+            {{ request()->routeIs('admin.news_banner*')
+                ? 'bg-indigo-600 text-white'
+                : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+                            <span class="w-5 text-center">•</span>
+                            <span class="hide-on-collapse">News Banner</span>
+                        </a>
+                    </div>
+                </div>
 
                 <a href="{{ route('admin.locations.index') }}"
                     class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
@@ -157,11 +194,11 @@
                         </a>
 
                         <a href="{{ route('admin.contact_messages.index') }}"
-                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
+                            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all center-on-collapse
                        {{ request()->routeIs('admin.contact_messages*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
-                    <span class="font-bold w-5 text-center">C</span>
-                    <span class="hide-on-collapse">Contact Messages</span>
-                </a>
+                            <span class="font-bold w-5 text-center">C</span>
+                            <span class="hide-on-collapse">Contact Messages</span>
+                        </a>
 
                     </div>
                 </div>
