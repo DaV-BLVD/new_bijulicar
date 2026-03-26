@@ -71,7 +71,6 @@ class Advertisement extends Model
         return match ($this->placement) {
             'home'        => 'Home Page',
             'marketplace' => 'Marketplace',
-            'sidebar'     => 'Sidebar',
             default       => ucfirst($this->placement),
         };
     }

@@ -137,7 +137,7 @@
         </div>
     </section>
 
-        {{-- ── Sponsored banners (marketplace placement) ─────────────────── --}}
+     {{-- ── Sponsored banners (marketplace placement) ─────────────────── --}}
     @if ($marketplaceAds->isNotEmpty())
         <section class="bg-[#f1f5f9] pt-10 pb-0">
             <div class="max-w-7xl mx-auto px-6 space-y-5">
@@ -194,7 +194,7 @@
                             {{-- Right: banner image (if provided) --}}
                             @if ($ad->image)
                                 <div class="md:w-2/5 shrink-0 relative min-h-[180px] md:min-h-0">
-                                    <img src="{{ Storage::url($ad->image) }}" alt="{{ $ad->title }}"
+                                    <img src="{{ asset('storage/' . $ad->image) }}" alt="{{ $ad->title }}"
                                         class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 absolute inset-0">
                                     {{-- Gradient fade into text side --}}
                                     <div
@@ -252,34 +252,43 @@
 
                     {{-- Body --}}
                     <div class="p-6 flex flex-col flex-1">
+
+                        {{-- Title & location --}}
                         <div class="mb-4">
-                            <h3 class="text-lg font-black text-slate-900 uppercase italic tracking-tight leading-tight">{{ $car->displayName() }}</h3>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">📍 {{ $car->location }}</p>
+                            <h3 class="text-[15px] font-black text-slate-900 uppercase italic tracking-tight leading-snug">{{ $car->displayName() }}</h3>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                {{ $car->location }}
+                            </p>
                         </div>
 
+                        {{-- Spec badges --}}
                         <div class="flex flex-wrap gap-2 mb-5">
                             <span class="text-[10px] font-black px-2 py-1 bg-slate-100 text-slate-600 rounded-lg uppercase tracking-wider">{{ number_format($car->mileage) }} km</span>
                             @if($car->range_km)
-                            <span class="text-[10px] font-black px-2 py-1 bg-[#4ade80]/10 text-[#16a34a] rounded-lg uppercase tracking-wider border border-[#4ade80]/20">{{ $car->range_km }} km range</span>
+                                <span class="text-[10px] font-black px-2 py-1 bg-[#4ade80]/10 text-[#16a34a] rounded-lg uppercase tracking-wider border border-[#4ade80]/20">{{ $car->range_km }} km range</span>
                             @endif
                             @if($car->battery_kwh)
-                            <span class="text-[10px] font-black px-2 py-1 bg-slate-100 text-slate-600 rounded-lg uppercase tracking-wider">{{ $car->battery_kwh }} kWh</span>
+                                <span class="text-[10px] font-black px-2 py-1 bg-slate-100 text-slate-600 rounded-lg uppercase tracking-wider">{{ $car->battery_kwh }} kWh</span>
                             @endif
                         </div>
 
-                        <div class="mt-auto pt-4 border-t border-slate-100 flex items-end justify-between gap-2">
-                            <div>
-                                <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold">Price</span>
-                                <span class="text-xl font-black text-slate-900 italic tracking-tight">{{ $car->formattedPrice() }}</span>
+                        {{-- Price + actions --}}
+                        <div class="mt-auto pt-4 border-t border-slate-100">
+
+                            {{-- Price row --}}
+                            <div class="mb-4">
+                                <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-0.5">Price</span>
+                                <span class="text-xl font-black text-slate-900 italic tracking-tight whitespace-nowrap">NRs {{ number_format($car->price) }}</span>
                                 @if($car->price_negotiable)
-                                <span class="block text-[9px] font-black text-[#16a34a] uppercase tracking-widest mt-0.5">Negotiable</span>
+                                    <span class="block text-[9px] font-black text-[#16a34a] uppercase tracking-widest mt-0.5">Negotiable</span>
                                 @endif
                             </div>
 
+                            {{-- Action buttons --}}
                             <div class="flex items-center gap-2">
-                                {{-- View Details --}}
                                 <a href="{{ route('cars.show', $car) }}"
-                                    class="flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-200 transition-all">
+                                    class="flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-200 transition-all shrink-0">
                                     Details
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 </a>
@@ -305,11 +314,14 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @else
-                                        <a href="{{ route('login') }}" class="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-700 transition-colors">Login to Order</a>
                                     @endif
+                                    {{-- Sellers & business: no order button, no login nudge --}}
                                 @else
-                                    <a href="{{ route('login') }}" class="flex items-center gap-2 bg-slate-100 text-slate-700 px-4 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-slate-900 hover:text-white transition-all">Login to Order</a>
+                                    {{-- Guest: nudge to login --}}
+                                    <a href="{{ route('login') }}"
+                                        class="flex items-center gap-1.5 bg-slate-900 text-white px-4 py-2.5 rounded-xl text-[11px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all">
+                                        Login to Order
+                                    </a>
                                 @endauth
                             </div>
                         </div>

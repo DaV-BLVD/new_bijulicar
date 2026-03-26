@@ -75,7 +75,7 @@
                         class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-400 outline-none transition-all appearance-none">
                         <option value="marketplace" {{ old('placement') === 'marketplace' ? 'selected' : '' }}>Marketplace</option>
                         <option value="home"        {{ old('placement') === 'home'        ? 'selected' : '' }}>Home Page</option>
-                        <option value="sidebar"     {{ old('placement') === 'sidebar'     ? 'selected' : '' }}>Sidebar</option>
+                        
                     </select>
                     @error('placement')<p class="text-red-500 text-[11px] font-bold mt-1">{{ $message }}</p>@enderror
                 </div>
