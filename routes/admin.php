@@ -62,7 +62,7 @@ Route::prefix('admin')
             });
 
             // 4. Staff Management (Superadmin ONLY)
-            Route::middleware(['role:superadmin,admin'])->group(function () {
+            Route::middleware(['role:superadmin'])->group(function () {
                 Route::resource('admins', AdminManagementController::class)->except(['show']);
             });
         });
