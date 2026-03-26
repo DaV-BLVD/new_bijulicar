@@ -321,7 +321,7 @@
                                 class="block w-full py-4 rounded-xl bg-slate-900 text-white text-[13px] font-black uppercase italic tracking-widest text-center hover:bg-[#16a34a] transition-all shadow-lg">
                                 Login to Order
                             </a>
-                            <a href="{{ route('user-registration') }}"
+                            <a href="{{ route('register') }}"
                                 class="block w-full py-3.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-[12px] font-black uppercase tracking-widest text-center hover:bg-slate-50 transition-all">
                                 Create Free Account
                             </a>

@@ -477,7 +477,7 @@
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('user-registration') }}"
+                    <a href="{{ route('register') }}"
                         class="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all">
                         Join & List Now
                     </a>
@@ -601,7 +601,7 @@
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('user-registration') }}"
+                        <a href="{{ route('register') }}"
                             class="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl text-white font-black uppercase italic tracking-wider hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 backdrop-blur-sm">
                             List Your Vehicle
                         </a>
