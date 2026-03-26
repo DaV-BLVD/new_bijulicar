@@ -85,7 +85,7 @@
                                 class="bg-[#4ade80] text-black px-10 py-4 rounded-xl font-black uppercase italic tracking-widest hover:bg-[#22c55e] transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
                                 Log In
                             </a>
-                            <a href="{{ route('user-registration') }}"
+                            <a href="{{ route('register') }}"
                                 class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-xl font-black uppercase italic tracking-widest hover:bg-white/20 transition-all">
                                 Sign Up Free
                             </a>
