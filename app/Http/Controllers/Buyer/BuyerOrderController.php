@@ -12,7 +12,7 @@ class BuyerOrderController extends Controller
 {
     public function index()
     {
-        $orders = auth('buyer')->user()
+        $orders = Auth::user()
             ->orders()
             ->with('car')
             ->latest('ordered_at')
@@ -23,7 +23,7 @@ class BuyerOrderController extends Controller
 
     public function show(Order $order)
     {
-        abort_if($order->buyer_id !== auth('buyer')->id(), 403);        
+        abort_if($order->buyer_id !== Auth::id(), 403);
         $order->load('car', 'purchase');
         return view('dashboard.buyer.orders.show', compact('order'));
     }
@@ -39,11 +39,11 @@ class BuyerOrderController extends Controller
 
         abort_if(!$car->isAvailable(), 422, 'This car is no longer available.');
         abort_if(!$car->inStock(),     422, 'This car is out of stock.');
-        abort_if($car->seller_id === auth('buyer')->id(), 422, 'You cannot order your own listing.');
+        abort_if($car->seller_id === Auth::id(), 422, 'You cannot order your own listing.');
 
         // Only block if a non-cancelled order already exists.
         // Cancelled orders are ignored — the buyer can re-order.
-        $hasActiveOrder = Order::where('buyer_id', auth('buyer')->id())
+        $hasActiveOrder = Order::where('buyer_id', Auth::id())
             ->where('car_id', $car->id)
             ->whereIn('status', ['pending', 'confirmed', 'completed'])
             ->exists();
@@ -51,7 +51,7 @@ class BuyerOrderController extends Controller
         abort_if($hasActiveOrder, 422, 'You already have an active order for this car.');
 
         $order = Order::create([
-            'buyer_id' => auth('buyer')->id(),
+            'buyer_id'    => Auth::id(),
             'car_id'      => $car->id,
             'status'      => 'pending',
             'total_price' => $car->price,
@@ -65,8 +65,7 @@ class BuyerOrderController extends Controller
 
     public function cancel(Order $order)
     {
-        // abort_if($order->buyer_id !== Auth::id(), 403);
-        abort_if($order->buyer_id !== auth('buyer')->id(), 403);
+        abort_if($order->buyer_id !== Auth::id(), 403);
         abort_if(!$order->isCancellable(), 422, 'This order can no longer be cancelled.');
 
         $order->update(['status' => 'cancelled']);
