@@ -238,7 +238,7 @@
         @php
             $cheapest = $selected->sortBy('price')->first();
             $bestRange = $selected->filter(fn($c) => $c->range_km)->sortByDesc('range_km')->first();
-            $lowestMileage = $selected->sortBy('mileage')->first();
+            $highestMileage = $selected->sortByDesc('mileage')->first();
             $verdictItems = [];
             $cheapIdx = $selected->search(fn($c) => $c->id === $cheapest->id);
             $verdictItems[] = ['label' => 'Best Value', 'car' => $cheapest->brand . ' ' . $cheapest->model, 'detail' => 'NRs ' . number_format($cheapest->price), 'idx' => $cheapIdx];
@@ -246,8 +246,15 @@
                 $rangeIdx = $selected->search(fn($c) => $c->id === $bestRange->id);
                 $verdictItems[] = ['label' => 'Longest Range', 'car' => $bestRange->brand . ' ' . $bestRange->model, 'detail' => number_format($bestRange->range_km) . ' km', 'idx' => $rangeIdx];
             }
-            $mileageIdx = $selected->search(fn($c) => $c->id === $lowestMileage->id);
-            $verdictItems[] = ['label' => 'Lowest Mileage', 'car' => $lowestMileage->brand . ' ' . $lowestMileage->model, 'detail' => number_format($lowestMileage->mileage) . ' km', 'idx' => $mileageIdx];
+            $mileageIdx = $selected->search(fn($c) => $c->id === $highestMileage->id);
+            $mileageIdx = $selected->search(fn($c) => $c->id === $highestMileage->id);
+
+            $verdictItems[] = [
+                'label' => 'Highest Mileage',
+                'car' => $highestMileage->brand . ' ' . $highestMileage->model,
+                'detail' => number_format($highestMileage->mileage) . ' km',
+                'idx' => $mileageIdx
+            ];
         @endphp
 
         <div class="bg-slate-900 rounded-2xl p-6 mb-8">

@@ -20,6 +20,7 @@ Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 
 
 Route::post('/contact', [App\Http\Controllers\ContactMessageController::class, 'store'])->name('contact.store');
 Route::get('/compare_cars', [App\Http\Controllers\CompareController::class, 'index'])->name('compare_cars');
+Route::get('/cars/{car}', [App\Http\Controllers\CarController::class, 'show'])->name('cars.show');
 
 // Static frontend auth pages
 Route::get('/login', fn() => view('frontend.auth.login'))->name('user-login');

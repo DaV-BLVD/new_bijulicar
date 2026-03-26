@@ -42,10 +42,10 @@
             <div class="text-2xl font-black text-yellow-600">{{ $pendingOrders }}</div>
             <div class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mt-1">Pending Orders</div>
         </div>
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-            <div class="text-2xl font-black text-slate-700">{{ $soldCars }}</div>
-            <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Sold</div>
-        </div>
+            <!-- <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <div class="text-2xl font-black text-slate-700">{{ $soldCars }}</div>
+                <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Sold</div>
+            </div> -->
         <div class="bg-green-50 border border-green-100 rounded-2xl p-5 col-span-2 lg:col-span-1">
             <div class="text-xl font-black text-green-700">NRs {{ number_format($totalRevenue) }}</div>
             <div class="text-[10px] font-black text-green-500 uppercase tracking-widest mt-1">Total Revenue</div>

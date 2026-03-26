@@ -10,7 +10,8 @@
         Back to Listings
     </a>
 
-    <form method="POST" action="{{ route($prefix . '.cars.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route($prefix . '.cars.store') }}" enctype="multipart/form-data"
+          onsubmit="this.querySelector('[type=submit]').disabled=true; this.querySelector('[type=submit]').textContent='Publishing…'">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -185,7 +186,7 @@
 
                 {{-- Submit --}}
                 <button type="submit"
-                    class="w-full flex items-center justify-center gap-3 bg-slate-900 text-white py-4 rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-xl">
+                    class="w-full flex items-center justify-center gap-3 bg-slate-900 text-white py-4 rounded-xl text-[12px] font-black uppercase italic tracking-widest hover:bg-[#16a34a] transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-900">
                     Publish Listing →
                 </button>
                 <p class="text-center text-[10px] font-bold text-slate-300 uppercase tracking-widest">
