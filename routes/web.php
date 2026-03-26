@@ -23,8 +23,8 @@ Route::get('/compare_cars', [App\Http\Controllers\CompareController::class, 'ind
 Route::get('/cars/{car}', [App\Http\Controllers\CarController::class, 'show'])->name('cars.show');
 
 // Static frontend auth pages
-Route::get('/login', fn() => view('frontend.auth.login'))->name('user-login');
-Route::get('/registration', fn() => view('frontend.auth.registration'))->name('user-registration');
+// Route::get('/login', fn() => view('frontend.auth.login'))->name('user-login');
+// Route::get('/registration', fn() => view('frontend.auth.registration'))->name('user-registration');
 
 // ── Dashboard — smart redirect based on role ───────────────────────────
 Route::get('/dashboard', function () {

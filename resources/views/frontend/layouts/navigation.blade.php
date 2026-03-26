@@ -132,7 +132,7 @@
             </div>
 
             @guest
-                <a href="{{ route('user-registration') }}"
+                <a href="{{ route('register') }}"
                     class="hidden sm:inline-flex items-center justify-center bg-[#4ade80] text-black px-5 py-2.5 rounded-xl text-[13px] font-black shadow-lg shadow-green-400/20 hover:bg-[#22c55e] transition-all active:scale-95">
                     Sign Up
                 </a>
@@ -238,7 +238,7 @@
                     <div class="grid grid-cols-2 gap-3 pt-2">
                         <a href="{{ route('login') }}"
                             class="flex items-center justify-center py-4 rounded-2xl bg-slate-100 text-slate-900 font-bold text-sm">Login</a>
-                        <a href="{{ route('user-registration') }}"
+                        <a href="{{ route('register') }}"
                             class="flex items-center justify-center py-4 rounded-2xl bg-[#4ade80] text-black font-black text-sm shadow-lg shadow-green-400/20">Sign Up</a>
                     </div>
                 @endauth
