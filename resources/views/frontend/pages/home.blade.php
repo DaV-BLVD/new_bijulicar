@@ -282,7 +282,6 @@
                         <h4 class="text-4xl md:text-5xl font-black tracking-tighter text-white mb-2">8+</h4>
                         <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">Years Experience</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -470,7 +469,7 @@
                         Recently <span class="text-slate-300">Added</span>
                     </h2>
                 </div>
-                <a href="#"
+                <a href="{{ route('marketplace') }}"
                     class="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-900">
                     Explore All Inventory
                     <span

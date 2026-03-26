@@ -51,14 +51,13 @@ Route::middleware(['auth', 'role:buyer'])
         Route::get('/dashboard', fn() => view('dashboard.buyer', ['user' => auth()->user()]))->name('dashboard');
 
         // Orders
-        Route::get('/orders', [BuyerOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders', [BuyerOrderController::class, 'index'])->name('orders.index')->middleware('permission: manage own orders');
         Route::post('/orders', [BuyerOrderController::class, 'store'])->name('orders.store');
         Route::get('/orders/{order}', [BuyerOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/cancel', [BuyerOrderController::class, 'cancel'])->name('orders.cancel');
 
         // Purchases
         Route::get('/purchases', [BuyerPurchaseController::class, 'index'])->name('purchases.index');
-    
 
         // Reviews
         Route::get('/reviews', [BuyerReviewController::class, 'index'])->name('reviews.index');
@@ -118,15 +117,29 @@ Route::middleware(['auth', 'role:business'])
         Route::post('/orders/{order}/complete', [App\Http\Controllers\Seller\SellerOrderController::class, 'complete'])->name('orders.complete');
 
         // Analytics
-        Route::get('/analytics', [App\Http\Controllers\Business\BusinessAnalyticsController::class, 'index'])->name('analytics');
+        Route::get('/analytics', [App\Http\Controllers\Business\BusinessAnalyticsController::class, 'index'])
+            ->name('analytics')
+            ->middleware('permission:view seller analytics');
 
         // Advertisements (CRUD)
-        Route::get('/advertisements', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'index'])->name('advertisements.index');
-        Route::get('/advertisements/create', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'create'])->name('advertisements.create');
-        Route::post('/advertisements', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'store'])->name('advertisements.store');
-        Route::get('/advertisements/{advertisement}/edit', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'edit'])->name('advertisements.edit');
-        Route::patch('/advertisements/{advertisement}', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'update'])->name('advertisements.update');
-        Route::delete('/advertisements/{advertisement}', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'destroy'])->name('advertisements.destroy');
+        Route::get('/advertisements', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'index'])
+            ->name('advertisements.index')
+            ->middleware('permission:create advertisements');
+        Route::get('/advertisements/create', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'create'])
+            ->name('advertisements.create')
+            ->middleware('permission:create advertisements');
+        Route::post('/advertisements', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'store'])
+            ->name('advertisements.store')
+            ->middleware('permission:create advertisements');
+        Route::get('/advertisements/{advertisement}/edit', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'edit'])
+            ->name('advertisements.edit')
+            ->middleware('permission:create advertisements');
+        Route::patch('/advertisements/{advertisement}', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'update'])
+            ->name('advertisements.update')
+            ->middleware('permission:create advertisements');
+        Route::delete('/advertisements/{advertisement}', [App\Http\Controllers\Business\BusinessAdvertisementController::class, 'destroy'])
+            ->name('advertisements.destroy')
+            ->middleware('permission:create advertisements');
     });
 
 // ── Profile ────────────────────────────────────────────────────────────
