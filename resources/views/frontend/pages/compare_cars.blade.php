@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+<title>Compare Cars | BijuliCar</title>
+
 @section('content')
 
 {{-- ══════════════════════════════════════════════════════════════

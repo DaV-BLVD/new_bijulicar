@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+<title>Contact | BijuliCar</title>
+
 @section('content')
     {{-- header section --}}
     <section class="relative bg-[#0a0f1e] pt-[120px] pb-16 lg:pt-40 lg:pb-28 overflow-hidden">

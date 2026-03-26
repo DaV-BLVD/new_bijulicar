@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+<title>Map Location | BijuliCar</title>
+
 @section('content')
     <section class="relative bg-[#0a0f1e] pt-[110px] pb-8 lg:pt-32 lg:pb-15 overflow-hidden border-b border-white/5">
         <div class="absolute inset-0 z-0">

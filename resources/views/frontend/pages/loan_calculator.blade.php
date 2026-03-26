@@ -1,5 +1,8 @@
 @extends('frontend.app')
 
+<title>Loan Calculator | BijuliCar</title>
+
+
 @section('content')
     {{-- HERO SECTION: The "Hook" --}}
     <section class="relative bg-[#050a15] pt-[110px] pb-10 lg:pt-32 lg:pb-20 overflow-hidden border-b border-white/5">

@@ -40,7 +40,7 @@
 
             <div class="space-y-6">
                 {{-- Social buttons (decorative — Socialite not configured) --}}
-                <div class="grid grid-cols-2 gap-4">
+                {{-- <div class="grid grid-cols-2 gap-4">
                     <button type="button" class="flex items-center justify-center gap-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4" alt="Google">
                         <span class="text-[10px] font-black uppercase tracking-widest text-slate-700">Google</span>
@@ -49,7 +49,7 @@
                         <img src="https://www.svgrepo.com/show/494336/apple.svg" class="w-4 h-4" alt="Apple">
                         <span class="text-[10px] font-black uppercase tracking-widest text-slate-700">Apple ID</span>
                     </button>
-                </div>
+                </div> --}}
 
                 <div class="relative flex items-center justify-center">
                     <div class="w-full h-px bg-slate-100"></div>

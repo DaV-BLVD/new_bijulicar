@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+<title>Marketplace | BijuliCar</title>
+
 @section('content')
 
     {{-- ── Hero + Filter section (untouched design) ──────────────────── --}}

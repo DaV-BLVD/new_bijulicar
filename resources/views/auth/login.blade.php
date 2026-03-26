@@ -48,7 +48,7 @@
             @endif
 
             <div class="space-y-6">
-                <div class="grid grid-cols-2 gap-4">
+                {{-- <div class="grid grid-cols-2 gap-4">
                     <button type="button"
                         class="flex items-center justify-center gap-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4" alt="Google">
@@ -59,13 +59,12 @@
                         <img src="https://www.svgrepo.com/show/475633/apple-black.svg" class="w-4 h-4" alt="Apple">
                         <span class="text-[10px] font-black uppercase tracking-widest text-slate-700">Apple ID</span>
                     </button>
-                </div>
+                </div> --}}
 
                 <div class="relative flex items-center justify-center">
                     <div class="w-full h-px bg-slate-100"></div>
                     <span
-                        class="absolute bg-white px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">Or
-                        use email</span>
+                        class="absolute bg-white px-4 text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">Use Email</span>
                 </div>
 
                 <form method="POST" action="{{ route('login') }}" class="space-y-4">
@@ -90,10 +89,10 @@
                         <div class="flex justify-between items-center ml-1">
                             <label for="password"
                                 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Password</label>
-                            @if (Route::has('password.request'))
+                            {{-- @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}"
                                     class="text-[9px] font-black text-[#16a34a] hover:underline uppercase tracking-widest">Forgot?</a>
-                            @endif
+                            @endif --}}
                         </div>
                         <input id="password" type="password" name="password" required autocomplete="current-password"
                             placeholder="••••••••"
@@ -104,12 +103,12 @@
                         @endif
                     </div>
 
-                    <div class="flex items-center gap-2 px-1 py-1">
+                    {{-- <div class="flex items-center gap-2 px-1 py-1">
                         <input type="checkbox" id="remember_me" name="remember"
                             class="w-4 h-4 rounded border-slate-300 text-[#16a34a] focus:ring-[#4ade80]">
                         <label for="remember_me" class="text-[11px] font-bold text-slate-500 cursor-pointer">Stay signed
                             in</label>
-                    </div>
+                    </div> --}}
 
                     <button type="submit"
                         class="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase italic tracking-widest text-xs hover:bg-[#16a34a] transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-200 group">

@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+<title>BijuliCar | Home</title>
+
 @section('content')
     {{-- Removed mt-4 and rounded corners to let it bleed to the top and edges --}}
 
