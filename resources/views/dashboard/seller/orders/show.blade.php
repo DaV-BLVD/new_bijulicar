@@ -251,7 +251,7 @@
                     </li>
                     <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
                         <span class="text-[#4ade80] mt-0.5">→</span>
-                        Accept cash, bank transfer, eSewa or Khalti.
+                        Accept cash, bank transfer.
                     </li>
                     <li class="text-xs font-medium text-slate-400 flex items-start gap-2">
                         <span class="text-[#4ade80] mt-0.5">→</span>

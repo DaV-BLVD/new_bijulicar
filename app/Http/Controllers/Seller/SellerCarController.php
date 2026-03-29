@@ -58,7 +58,7 @@ class SellerCarController extends Controller
             'drivetrain'       => ['required', 'in:ev,hybrid,petrol,diesel'],
             'mileage'          => ['required', 'integer', 'min:0'],
             'range_km'         => ['nullable', 'integer', 'min:0'],
-            'battery_kwh'      => ['nullable', 'integer', 'min:0'],
+            'battery_kwh'      => ['nullable', 'numeric', 'min:0'],
             'color'            => ['nullable', 'string', 'max:50'],
             'condition'        => ['required', 'in:new,used,certified'],
             'price'            => ['required', 'integer', 'min:1'],
@@ -119,7 +119,7 @@ class SellerCarController extends Controller
      */
     public function edit(Car $car)
     {
-        abort_if($car->seller_id !== Auth::id(), 403);
+        abort_if($car->seller_id != Auth::id(), 403);
 
         $car->load('images');
 
@@ -131,7 +131,7 @@ class SellerCarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        abort_if($car->seller_id !== Auth::id(), 403);
+        abort_if($car->seller_id != Auth::id(), 403);
 
         $ctx = $this->context();
 
@@ -143,7 +143,7 @@ class SellerCarController extends Controller
             'drivetrain'       => ['required', 'in:ev,hybrid,petrol,diesel'],
             'mileage'          => ['required', 'integer', 'min:0'],
             'range_km'         => ['nullable', 'integer', 'min:0'],
-            'battery_kwh'      => ['nullable', 'integer', 'min:0'],
+            'battery_kwh'      => ['nullable', 'numeric', 'min:0'],
             'color'            => ['nullable', 'string', 'max:50'],
             'condition'        => ['required', 'in:new,used,certified'],
             'price'            => ['required', 'integer', 'min:1'],

@@ -107,7 +107,7 @@
 
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Battery (kWh)</label>
-                            <input type="number" name="battery_kwh" value="{{ old('battery_kwh') }}" placeholder="e.g. 60"
+                            <input type="number" name="battery_kwh" value="{{ old('battery_kwh') }}" placeholder="e.g. 60" step="any" min="0"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                             @error('battery_kwh')<p class="text-red-500 text-xs font-bold">{{ $message }}</p>@enderror
                         </div>

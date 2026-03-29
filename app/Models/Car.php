@@ -37,7 +37,7 @@ class Car extends Model
             'price'            => 'integer',
             'mileage'          => 'integer',
             'range_km'         => 'integer',
-            'battery_kwh'      => 'integer',
+            'battery_kwh'      => 'float',
             'stock_quantity'   => 'integer',
         ];
     }

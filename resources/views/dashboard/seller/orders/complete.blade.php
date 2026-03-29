@@ -31,8 +31,6 @@
                             @foreach([
                                 'cash'          => '💵 Cash',
                                 'bank_transfer' => '🏦 Bank Transfer',
-                                'esewa'         => '🟢 eSewa',
-                                'khalti'        => '🟣 Khalti',
                                 'emi'           => '📅 EMI',
                                 'other'         => '💳 Other',
                             ] as $value => $label)
@@ -80,7 +78,7 @@
                         <input type="text"
                             name="transaction_ref"
                             value="{{ old('transaction_ref') }}"
-                            placeholder="e.g. eSewa Ref: ABC123 or Bank Ref: TXN-001"
+                            placeholder="e.g. Bank Ref: TXN-001"
                             class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#16a34a] focus:bg-white transition-all">
                         @error('transaction_ref')
                             <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>

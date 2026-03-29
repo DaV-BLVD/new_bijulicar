@@ -66,7 +66,7 @@ class BusinessAdvertisementController extends Controller
     /** Show the edit form. */
     public function edit(Advertisement $advertisement)
     {
-        abort_if($advertisement->user_id !== Auth::id(), 403);
+        abort_if($advertisement->user_id != Auth::id(), 403);
 
         $cars = Auth::user()->listedCars()->where('status', 'available')->get();
 
@@ -76,7 +76,7 @@ class BusinessAdvertisementController extends Controller
     /** Update an existing ad. */
     public function update(Request $request, Advertisement $advertisement)
     {
-        abort_if($advertisement->user_id !== Auth::id(), 403);
+        abort_if($advertisement->user_id != Auth::id(), 403);
 
         $request->validate([
             'title' => ['required', 'string', 'max:150'],
@@ -116,7 +116,7 @@ class BusinessAdvertisementController extends Controller
     /** Delete an ad and its image. */
     public function destroy(Advertisement $advertisement)
     {
-        abort_if($advertisement->user_id !== Auth::id(), 403);
+        abort_if($advertisement->user_id != Auth::id(), 403);
 
         if ($advertisement->image) {
             Storage::disk('public')->delete($advertisement->image);

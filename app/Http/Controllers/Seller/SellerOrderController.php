@@ -93,7 +93,7 @@ class SellerOrderController extends Controller
         abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
 
         $request->validate([
-            'payment_method'  => ['required', 'in:cash,bank_transfer,emi,esewa,khalti,other'],
+            'payment_method'  => ['required', 'in:cash,bank_transfer,emi,other'],
             'amount_paid'     => ['required', 'integer', 'min:1'],
             'transaction_ref' => ['nullable', 'string', 'max:255'],
             'remarks'         => ['nullable', 'string', 'max:500'],

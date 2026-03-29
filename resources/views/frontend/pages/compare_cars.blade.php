@@ -340,7 +340,7 @@
                 ['label' => 'Drivetrain',    'key' => 'drivetrain',    'format' => 'upper',   'numeric' => false],
                 ['label' => 'Range',         'key' => 'range_km',      'unit' => 'km',        'numeric' => true,  'higher' => true,  'ev_only' => true],
                 ['label' => 'Battery',       'key' => 'battery_kwh',   'unit' => 'kWh',       'numeric' => true,  'higher' => true,  'ev_only' => true],
-                ['label' => 'Mileage',       'key' => 'mileage',       'unit' => 'km',        'numeric' => true,  'higher' => false],
+                ['label' => 'Mileage',       'key' => 'mileage',       'unit' => 'km',        'numeric' => true,  'higher' => true],
             ],
             'Vehicle Details' => [
                 ['label' => 'Year',          'key' => 'year',          'numeric' => true,     'higher' => true],
