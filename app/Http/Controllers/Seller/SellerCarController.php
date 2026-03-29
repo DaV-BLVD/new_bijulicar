@@ -225,7 +225,7 @@ class SellerCarController extends Controller
      */
     public function destroy(Car $car)
     {
-        abort_if($car->seller_id !== Auth::id(), 403);
+        abort_if($car->seller_id != Auth::id(), 403);
 
         $ctx = $this->context();
 

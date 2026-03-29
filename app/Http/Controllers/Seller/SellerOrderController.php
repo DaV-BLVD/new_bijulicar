@@ -10,10 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class SellerOrderController extends Controller
 {
+    /** * Get the authenticated user for the web guard explicitly.
+     */
+    private function authUser()
+    {
+        return Auth::guard('web')->user();
+    }
+
     /** Detect which role is using this controller and return the correct route prefix and layout. */
     private function context(): array
     {
-        if (Auth::user()->hasRole('business')) {
+        $user = $this->authUser();
+        
+        if ($user && $user->hasRole('business')) {
             return ['prefix' => 'business', 'layout' => 'dashboard.business.layout'];
         }
         return ['prefix' => 'seller', 'layout' => 'dashboard.seller.layout'];
@@ -25,9 +34,10 @@ class SellerOrderController extends Controller
     public function index()
     {
         $ctx = $this->context();
+        $userId = Auth::guard('web')->id();
 
-        $orders = Order::whereHas('car', function ($q) {
-                $q->where('seller_id', Auth::id());
+        $orders = Order::whereHas('car', function ($q) use ($userId) {
+                $q->where('seller_id', $userId);
             })
             ->with('car', 'buyer')
             ->latest('ordered_at')
@@ -41,10 +51,10 @@ class SellerOrderController extends Controller
      */
     public function show(Order $order)
     {
-        abort_if($order->car->seller_id !== Auth::id(), 403);
+        // Use != and explicit guard ID to prevent live-server 403s
+        abort_if($order->car->seller_id != Auth::guard('web')->id(), 403);
 
         $ctx = $this->context();
-
         $order->load('car', 'buyer', 'purchase');
 
         return view('dashboard.seller.orders.show', array_merge(compact('order'), $ctx));
@@ -55,7 +65,7 @@ class SellerOrderController extends Controller
      */
     public function confirm(Order $order)
     {
-        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->car->seller_id != Auth::guard('web')->id(), 403);
         abort_if($order->status !== 'pending', 422, 'Only pending orders can be confirmed.');
 
         $order->update(['status' => 'confirmed']);
@@ -63,7 +73,7 @@ class SellerOrderController extends Controller
         $prefix = $this->context()['prefix'];
 
         return redirect()
-            ->route($prefix . '.orders.show', $order)
+            ->route($prefix . '.orders.show', $order->id)
             ->with('success', 'Order confirmed. Once you receive payment, mark it as completed.');
     }
 
@@ -72,12 +82,11 @@ class SellerOrderController extends Controller
      */
     public function completeForm(Order $order)
     {
-        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->car->seller_id != Auth::guard('web')->id(), 403);
         abort_if($order->status !== 'confirmed', 422, 'Only confirmed orders can be marked as completed.');
         abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
 
         $ctx = $this->context();
-
         $order->load('car', 'buyer');
 
         return view('dashboard.seller.orders.complete', array_merge(compact('order'), $ctx));
@@ -88,10 +97,9 @@ class SellerOrderController extends Controller
      */
     public function complete(Request $request, Order $order)
     {
-        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->car->seller_id != Auth::guard('web')->id(), 403);
         abort_if($order->status !== 'confirmed', 422, 'Only confirmed orders can be marked as completed.');
-        abort_if($order->purchase()->exists(), 422, 'This order is already completed.');
-
+        
         $request->validate([
             'payment_method'  => ['required', 'in:cash,bank_transfer,emi,other'],
             'amount_paid'     => ['required', 'integer', 'min:1'],
@@ -115,7 +123,7 @@ class SellerOrderController extends Controller
         $prefix = $this->context()['prefix'];
 
         return redirect()
-            ->route($prefix . '.orders.show', $order)
+            ->route($prefix . '.orders.show', $order->id)
             ->with('success', 'Order marked as completed. Payment recorded successfully.');
     }
 
@@ -124,7 +132,7 @@ class SellerOrderController extends Controller
      */
     public function cancel(Order $order)
     {
-        abort_if($order->car->seller_id !== Auth::id(), 403);
+        abort_if($order->car->seller_id != Auth::guard('web')->id(), 403);
         abort_if(!$order->isCancellable(), 422, 'This order can no longer be cancelled.');
 
         $order->update(['status' => 'cancelled']);
