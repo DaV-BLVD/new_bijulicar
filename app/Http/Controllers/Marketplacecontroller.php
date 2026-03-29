@@ -24,7 +24,11 @@ class MarketplaceController extends Controller
 
         // Drivetrain dropdown
         if ($request->filled('drivetrain') && $request->drivetrain !== 'all') {
-            $query->where('drivetrain', $request->drivetrain);
+            if ($request->drivetrain === 'classic') {
+                $query->whereIn('drivetrain', ['petrol', 'diesel']);
+            } else {
+                $query->where('drivetrain', $request->drivetrain);
+            }
         }
 
         // Location dropdown

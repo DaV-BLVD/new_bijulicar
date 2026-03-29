@@ -175,7 +175,7 @@
             </a>
 
             {{-- Classic --}}
-            <a href="{{ route('marketplace') }}"
+            <a href="{{ route('marketplace', ['drivetrain' => 'classic']) }}"
                 class="group relative bg-white rounded-[2.5rem] p-10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.12)] transition-all duration-500 border border-transparent hover:border-slate-100 flex flex-col justify-between h-full">
                 <div>
                     <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#4ade80]/10 transition-colors">

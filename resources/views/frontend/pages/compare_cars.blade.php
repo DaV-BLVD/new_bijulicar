@@ -1,7 +1,5 @@
 @extends('frontend.app')
 
-<title>Compare Cars | BijuliCar</title>
-
 @section('content')
 
 {{-- ══════════════════════════════════════════════════════════════
@@ -221,14 +219,30 @@
 
                         @auth
                             @if (auth()->user()->hasRole('buyer'))
-                                <form method="POST" action="{{ route('buyer.orders.store') }}" class="mt-4">
-                                    @csrf
-                                    <input type="hidden" name="car_id" value="{{ $car->id }}">
-                                    <button type="submit"
-                                        class="w-full py-2.5 rounded-xl {{ $accentBg[$i] }} text-white text-[11px] font-black uppercase tracking-widest hover:opacity-90 transition-all">
-                                        Order This Car
-                                    </button>
-                                </form>
+                                @php
+                                    $alreadyOrdered = auth()->user()->orders()
+                                        ->where('car_id', $car->id)
+                                        ->whereIn('status', ['pending', 'confirmed', 'completed'])
+                                        ->exists();
+                                @endphp
+                                @if ($alreadyOrdered)
+                                    <div class="mt-4 w-full py-2.5 rounded-xl bg-green-50 border border-green-200 text-green-700 text-[11px] font-black uppercase tracking-widest text-center">
+                                        ✓ Already Ordered
+                                    </div>
+                                @elseif (!$car->inStock())
+                                    <div class="mt-4 w-full py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-500 text-[11px] font-black uppercase tracking-widest text-center">
+                                        Out of Stock
+                                    </div>
+                                @else
+                                    <form method="POST" action="{{ route('buyer.orders.store') }}" class="mt-4">
+                                        @csrf
+                                        <input type="hidden" name="car_id" value="{{ $car->id }}">
+                                        <button type="submit"
+                                            class="w-full py-2.5 rounded-xl {{ $accentBg[$i] }} text-white text-[11px] font-black uppercase tracking-widest hover:opacity-90 transition-all">
+                                            Order This Car
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         @endauth
                     </div>
@@ -248,7 +262,6 @@
                 $rangeIdx = $selected->search(fn($c) => $c->id === $bestRange->id);
                 $verdictItems[] = ['label' => 'Longest Range', 'car' => $bestRange->brand . ' ' . $bestRange->model, 'detail' => number_format($bestRange->range_km) . ' km', 'idx' => $rangeIdx];
             }
-            $mileageIdx = $selected->search(fn($c) => $c->id === $highestMileage->id);
             $mileageIdx = $selected->search(fn($c) => $c->id === $highestMileage->id);
 
             $verdictItems[] = [
